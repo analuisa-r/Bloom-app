@@ -1,0 +1,15 @@
+:root {
+  --rosa-pastel: #F8DCE8;
+  --rosa-blush: #EFB7CC;
+  --creme: #FFF9F5;
+  --branco: #FFFFFF;
+  --verde-sage: #C8D8C0;
+  --texto: #51434A;
+}
+
+body {
+  background-color: var(--creme);
+  color: var(--texto);
+  font-family: Georgia, serif;
+  margin: 0;
+}
