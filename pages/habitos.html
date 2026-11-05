@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hábitos - Bloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app.css">
+</head>
+<body>
+  <header class="topo">
+    <a class="logo" href="../index.html">Bloom 🌸</a>
+  </header>
+
+  <main class="app">
+    <h1 id="saudacao">Bem-vinda ao Bloom</h1>
+    <p id="data-hoje" class="data"></p>
+    <p id="mensagem" class="mensagem" role="status"></p>
+
+    <form id="form-nome" class="cartao-app">
+      <label for="campo-nome">Como você quer ser chamada?</label>
+      <input id="campo-nome" type="text" maxlength="30" placeholder="Seu nome">
+      <button class="botao" type="submit">Começar</button>
+    </form>
+
+    <div id="painel" hidden>
+      <section class="cartao-app">
+        <h2>Progresso de hoje</h2>
+        <p id="progresso-texto"></p>
+        <div class="barra"><div id="progresso-barra" class="barra-preenchida"></div></div>
+      </section>
+
+      <form id="form-habito" class="cartao-app">
+        <h2>Novo hábito</h2>
+        <label for="campo-habito">Nome do hábito</label>
+        <input id="campo-habito" type="text" maxlength="60" placeholder="Ex.: Beber 2 litros de água">
+        <label for="campo-categoria">Categoria</label>
+        <select id="campo-categoria"></select>
+        <button class="botao" type="submit">Adicionar hábito</button>
+      </form>
+
+      <section class="cartao-app">
+        <h2>Hábitos de hoje</h2>
+        <p id="lista-vazia">Você ainda não tem hábitos. Adicione o primeiro acima.</p>
+        <ul id="lista-habitos" class="lista-habitos"></ul>
+      </section>
+    </div>
+  </main>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/habitos.js"></script>
+</body>
+</html>
