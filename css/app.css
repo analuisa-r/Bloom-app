@@ -1,0 +1,36 @@
+.app { max-width: 640px; margin: 0 auto; padding: 8px 20px 64px; }
+.app h1 { margin: 0; font-size: 2.2rem; }
+.data { margin: 4px 0 24px; text-transform: capitalize; }
+
+.cartao-app {
+  display: block; margin-bottom: 20px; padding: 24px;
+  background: var(--branco); border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(81, 67, 74, 0.08);
+}
+.cartao-app h2 { margin: 0 0 12px; font-size: 1.3rem; }
+.cartao-app label { display: block; margin: 12px 0 4px; font-weight: 600; }
+.cartao-app input[type="text"], .cartao-app select {
+  width: 100%; padding: 12px 14px; font: inherit; color: var(--texto);
+  border: 2px solid var(--rosa-pastel); border-radius: 12px; background: var(--creme);
+}
+.cartao-app input:focus, .cartao-app select:focus, button:focus-visible {
+  outline: 3px solid var(--verde-sage); outline-offset: 2px;
+}
+.cartao-app .botao { margin-top: 16px; border: 0; cursor: pointer; font: inherit; font-weight: 600; }
+
+.barra { height: 12px; background: var(--rosa-pastel); border-radius: 999px; overflow: hidden; }
+.barra-preenchida { height: 100%; width: 0; background: var(--verde-sage); border-radius: 999px; transition: width 0.4s ease; }
+
+.lista-habitos { margin: 0; padding: 0; list-style: none; }
+.habito { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--rosa-pastel); }
+.habito-nome { flex: 1; min-width: 120px; }
+.habito-feito .habito-nome { text-decoration: line-through; opacity: 0.6; }
+.habito input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--rosa-blush); }
+.habito small { padding: 2px 10px; background: var(--verde-sage); border-radius: 999px; }
+
+.botao-pequeno { padding: 6px 12px; font: inherit; font-size: 0.85rem; color: var(--texto); background: var(--rosa-pastel); border: 0; border-radius: 999px; cursor: pointer; }
+.botao-perigo { background: #f3d0d0; }
+
+.mensagem { min-height: 1.4em; margin: 0 0 12px; font-weight: 600; }
+.mensagem-sucesso { color: #4f7a45; }
+.mensagem-erro { color: #a33a4f; }
