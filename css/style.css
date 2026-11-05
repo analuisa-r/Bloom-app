@@ -7,9 +7,159 @@
   --texto: #51434A;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
+  margin: 0;
   background-color: var(--creme);
   color: var(--texto);
-  font-family: Georgia, serif;
+  font-family: 'Nunito', Georgia, sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3, .logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 500;
+}
+
+/* Topo */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+}
+
+.logo {
+  font-size: 1.8rem;
+  color: var(--texto);
+}
+
+.menu a {
+  margin-left: 24px;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.menu a:hover {
+  color: var(--rosa-blush);
+}
+
+/* Início da página */
+.hero {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 72px 24px 88px;
+  text-align: center;
+}
+
+.hero-etiqueta {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 6px 16px;
+  background-color: var(--rosa-pastel);
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: 3rem;
+  line-height: 1.15;
+}
+
+.hero-texto {
+  margin: 0 0 32px;
+  font-size: 1.15rem;
+}
+
+/* Botão */
+.botao {
+  display: inline-block;
+  padding: 14px 36px;
+  background-color: var(--rosa-blush);
+  color: var(--texto);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(239, 183, 204, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.botao:hover {
+  transform: translateY(-2px);
+}
+
+/* Seções */
+.secao {
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.secao h2 {
+  margin: 0 0 40px;
+  font-size: 2rem;
+}
+
+.secao-sage {
+  background-color: var(--verde-sage);
+}
+
+/* Cartões */
+.cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.cartao {
+  padding: 32px 24px;
+  background-color: var(--branco);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(81, 67, 74, 0.08);
+}
+
+.cartao h3 {
+  margin: 0 0 8px;
+  font-size: 1.4rem;
+}
+
+.cartao p {
   margin: 0;
+}
+
+/* Lista de passos */
+.passos {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+  list-style-position: inside;
+  font-size: 1.1rem;
+}
+
+.passos li {
+  margin-bottom: 12px;
+}
+
+/* Rodapé */
+.rodape {
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Celular */
+@media (max-width: 600px) {
+  .topo {
+    padding: 16px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
 }
