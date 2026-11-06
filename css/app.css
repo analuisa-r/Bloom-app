@@ -45,3 +45,7 @@
 }
 .botao-energia-ativo { background: var(--rosa-pastel); border-color: var(--rosa-blush); }
 #energia-texto { margin: 0; }
+/* Garante que elementos com o atributo hidden fiquem escondidos */
+[hidden] {
+  display: none !important;
+}
