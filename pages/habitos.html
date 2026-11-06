@@ -27,6 +27,16 @@
 
     <div id="painel" hidden>
       <section class="cartao-app">
+        <h2>Como está sua energia hoje?</h2>
+        <div class="energia">
+          <button type="button" class="botao-energia" data-nivel="baixa">Baixa</button>
+          <button type="button" class="botao-energia" data-nivel="média">Média</button>
+          <button type="button" class="botao-energia" data-nivel="alta">Alta</button>
+        </div>
+        <p id="energia-texto"></p>
+      </section>
+
+      <section class="cartao-app">
         <h2>Progresso de hoje</h2>
         <p id="progresso-texto"></p>
         <div class="barra"><div id="progresso-barra" class="barra-preenchida"></div></div>
@@ -38,6 +48,8 @@
         <input id="campo-habito" type="text" maxlength="60" placeholder="Ex.: Beber 2 litros de água">
         <label for="campo-categoria">Categoria</label>
         <select id="campo-categoria"></select>
+        <label for="campo-minima">Versão mínima (opcional)</label>
+        <input id="campo-minima" type="text" maxlength="60" placeholder="Ex.: Beber 1 copo de água">
         <button class="botao" type="submit">Adicionar hábito</button>
       </form>
 
