@@ -1,7 +1,8 @@
 /* app.css - estilos das páginas internas (usa as cores definidas em style.css) */
 .app { max-width: 640px; margin: 0 auto; padding: 8px 20px 64px; }
 .app h1 { margin: 0; font-size: 2.2rem; }
-.data { margin: 4px 0 24px; text-transform: capitalize; }
+.data { margin: 4px 0 24px; }
+.data::first-letter { text-transform: uppercase; }
 
 .cartao-app {
   display: block; margin-bottom: 20px; padding: 24px;
