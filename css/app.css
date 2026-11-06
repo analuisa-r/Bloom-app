@@ -1,3 +1,4 @@
+/* app.css - estilos das páginas internas (usa as cores definidas em style.css) */
 .app { max-width: 640px; margin: 0 auto; padding: 8px 20px 64px; }
 .app h1 { margin: 0; font-size: 2.2rem; }
 .data { margin: 4px 0 24px; text-transform: capitalize; }
@@ -34,3 +35,13 @@
 .mensagem { min-height: 1.4em; margin: 0 0 12px; font-weight: 600; }
 .mensagem-sucesso { color: #4f7a45; }
 .mensagem-erro { color: #a33a4f; }
+
+/* Check-in de energia */
+.energia { display: flex; gap: 10px; margin-bottom: 12px; }
+.botao-energia {
+  flex: 1; padding: 12px; font: inherit; font-weight: 600; color: var(--texto);
+  background: var(--creme); border: 2px solid var(--rosa-pastel); border-radius: 14px; cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.botao-energia-ativo { background: var(--rosa-pastel); border-color: var(--rosa-blush); }
+#energia-texto { margin: 0; }
