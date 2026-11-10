@@ -3,20 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hábitos - Bloom</title>
+  <title>Meus hábitos - Bloom</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/app.css">
 </head>
-<body>
+<body class="pagina-app">
   <header class="topo">
     <a class="logo" href="../index.html">Bloom 🌸</a>
+    <span class="topo-pagina">Meus hábitos</span>
   </header>
 
   <main class="app">
-    <h1 id="saudacao">Bem-vinda ao Bloom</h1>
-    <p id="data-hoje" class="data"></p>
+    <section class="saudacao-bloco">
+      <div>
+        <p id="data-hoje" class="rotulo"></p>
+        <h1 id="saudacao">Bem-vinda ao Bloom</h1>
+        <p class="saudacao-texto">
+          Cada flor desabrocha no seu tempo. Você também pode florescer
+          no seu próprio ritmo, um pequeno cuidado de cada vez.
+        </p>
+      </div>
+      <img class="imagem-ramo" src="../assets/ramo-flores.png" alt="" onerror="this.style.display='none'">
+    </section>
+
     <p id="mensagem" class="mensagem" role="status"></p>
 
     <form id="form-nome" class="cartao-app">
@@ -25,39 +37,49 @@
       <button class="botao" type="submit">Começar</button>
     </form>
 
-    <div id="painel" hidden>
-      <section class="cartao-app">
-        <h2>Como está sua energia hoje?</h2>
-        <div class="energia">
-          <button type="button" class="botao-energia" data-nivel="baixa">Baixa</button>
-          <button type="button" class="botao-energia" data-nivel="média">Média</button>
-          <button type="button" class="botao-energia" data-nivel="alta">Alta</button>
-        </div>
-        <p id="energia-texto"></p>
-      </section>
+    <div id="painel" class="painel" hidden>
+      <div class="coluna">
+        <section class="cartao-app">
+          <p class="rotulo">Check-in</p>
+          <h2>Como está sua energia hoje?</h2>
+          <div class="energia">
+            <button type="button" class="botao-energia" data-nivel="baixa">Baixa<small>Em botão</small></button>
+            <button type="button" class="botao-energia" data-nivel="média">Média<small>Abrindo</small></button>
+            <button type="button" class="botao-energia" data-nivel="alta">Alta<small>Florida</small></button>
+          </div>
+          <p id="energia-texto" class="energia-texto"></p>
+        </section>
 
-      <section class="cartao-app">
-        <h2>Progresso de hoje</h2>
-        <p id="progresso-texto"></p>
-        <div class="barra"><div id="progresso-barra" class="barra-preenchida"></div></div>
-      </section>
+        <section class="cartao-app">
+          <p class="rotulo">Hoje</p>
+          <h2>Meus hábitos</h2>
+          <p id="lista-vazia">Você ainda não tem hábitos. Plante o primeiro ao lado.</p>
+          <ul id="lista-habitos" class="lista-habitos"></ul>
+        </section>
+      </div>
 
-      <form id="form-habito" class="cartao-app">
-        <h2>Novo hábito</h2>
-        <label for="campo-habito">Nome do hábito</label>
-        <input id="campo-habito" type="text" maxlength="60" placeholder="Ex.: Beber 2 litros de água">
-        <label for="campo-categoria">Categoria</label>
-        <select id="campo-categoria"></select>
-        <label for="campo-minima">Versão mínima (opcional)</label>
-        <input id="campo-minima" type="text" maxlength="60" placeholder="Ex.: Beber 1 copo de água">
-        <button class="botao" type="submit">Adicionar hábito</button>
-      </form>
+      <div class="coluna">
+        <section class="cartao-app">
+          <p class="rotulo">Progresso de hoje</p>
+          <h2>Seu jardim</h2>
+          <p id="progresso-texto"></p>
+          <div class="barra"><div id="progresso-barra" class="barra-preenchida"></div></div>
+          <img class="imagem-jardim" src="../assets/jardim.jpg" alt="" onerror="this.style.display='none'">
+        </section>
 
-      <section class="cartao-app">
-        <h2>Hábitos de hoje</h2>
-        <p id="lista-vazia">Você ainda não tem hábitos. Adicione o primeiro acima.</p>
-        <ul id="lista-habitos" class="lista-habitos"></ul>
-      </section>
+        <form id="form-habito" class="cartao-app">
+          <p class="rotulo">Novo hábito</p>
+          <h2>Plantar uma semente</h2>
+          <label for="campo-habito">Nome do hábito</label>
+          <input id="campo-habito" type="text" maxlength="60" placeholder="Ex.: Meditar">
+          <label for="campo-categoria">Categoria</label>
+          <select id="campo-categoria"></select>
+          <label for="campo-minima">Versão mínima (opcional)</label>
+          <input id="campo-minima" type="text" maxlength="60" placeholder="Ex.: 2 minutos de respiração">
+          <p class="ajuda">O menor passo possível para os dias de pouca energia.</p>
+          <button class="botao" type="submit">Adicionar hábito</button>
+        </form>
+      </div>
     </div>
   </main>
 
