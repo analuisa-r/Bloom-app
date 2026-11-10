@@ -1,52 +1,149 @@
 /* app.css - estilos das páginas internas (usa as cores definidas em style.css) */
-.app { max-width: 640px; margin: 0 auto; padding: 8px 20px 64px; }
-.app h1 { margin: 0; font-size: 2.2rem; }
-.data { margin: 4px 0 24px; }
-.data::first-letter { text-transform: uppercase; }
 
-.cartao-app {
-  display: block; margin-bottom: 20px; padding: 24px;
-  background: var(--branco); border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(81, 67, 74, 0.08);
+:root {
+  --rosa-antigo: #B0636F;
+  --raio-cartao: 28px;
 }
-.cartao-app h2 { margin: 0 0 12px; font-size: 1.3rem; }
-.cartao-app label { display: block; margin: 12px 0 4px; font-weight: 600; }
+
+/* ---------- Base das páginas internas ---------- */
+.pagina-app {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(248, 220, 232, 0.7), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(200, 216, 192, 0.5), transparent 45%),
+    var(--creme);
+  background-attachment: fixed;
+}
+
+.pagina-app h1, .pagina-app h2, .pagina-app .logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+}
+
+.topo-pagina {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  background: var(--branco);
+  border: 1px solid var(--rosa-pastel);
+  border-radius: 999px;
+}
+
+.rotulo {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ---------- Estrutura ---------- */
+.app { max-width: 1080px; margin: 0 auto; padding: 8px 24px 64px; }
+
+.saudacao-bloco {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; margin-bottom: 32px;
+}
+.saudacao-bloco h1 { margin: 0 0 12px; font-size: 3.2rem; line-height: 1.1; }
+.saudacao-texto { max-width: 460px; margin: 0; font-size: 1.1rem; }
+.imagem-ramo { max-width: 340px; width: 40%; height: auto; }
+
+.painel { display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; align-items: start; }
+.coluna { display: flex; flex-direction: column; gap: 24px; }
+
+/* ---------- Cartões e formulários ---------- */
+.cartao-app {
+  display: block; margin: 0; padding: 28px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--rosa-pastel);
+  border-radius: var(--raio-cartao);
+  box-shadow: 0 8px 28px rgba(81, 67, 74, 0.05);
+}
+#form-nome { margin-bottom: 24px; }
+.cartao-app h2 { margin: 0 0 16px; font-size: 1.8rem; }
+.cartao-app label { display: block; margin: 14px 0 4px; font-weight: 600; }
 .cartao-app input[type="text"], .cartao-app select {
-  width: 100%; padding: 12px 14px; font: inherit; color: var(--texto);
-  border: 2px solid var(--rosa-pastel); border-radius: 12px; background: var(--creme);
+  width: 100%; padding: 13px 18px; font: inherit; color: var(--texto);
+  border: 1px solid var(--rosa-pastel); border-radius: 999px; background: var(--creme);
 }
 .cartao-app input:focus, .cartao-app select:focus, button:focus-visible {
   outline: 3px solid var(--verde-sage); outline-offset: 2px;
 }
-.cartao-app .botao { margin-top: 16px; border: 0; cursor: pointer; font: inherit; font-weight: 600; }
+.ajuda { margin: 6px 0 0; font-size: 0.85rem; opacity: 0.75; }
+.cartao-app .botao {
+  width: 100%; margin-top: 18px; border: 0; cursor: pointer; font: inherit; font-weight: 700;
+  color: var(--branco); background: var(--rosa-antigo);
+  box-shadow: 0 8px 18px rgba(176, 99, 111, 0.3);
+}
 
-.barra { height: 12px; background: var(--rosa-pastel); border-radius: 999px; overflow: hidden; }
-.barra-preenchida { height: 100%; width: 0; background: var(--verde-sage); border-radius: 999px; transition: width 0.4s ease; }
+/* ---------- Energia ---------- */
+.energia { display: flex; gap: 12px; margin-bottom: 14px; }
+.botao-energia {
+  flex: 1; padding: 20px 8px; font: inherit; font-weight: 700; color: var(--texto);
+  background: var(--creme); border: 1px solid var(--rosa-pastel); border-radius: 24px; cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.botao-energia small { display: block; margin-top: 2px; font-weight: 400; opacity: 0.7; }
+.botao-energia:hover { transform: translateY(-2px); }
+.botao-energia-ativo { background: var(--rosa-pastel); border-color: var(--rosa-blush); }
+.energia-texto { margin: 0; padding: 14px 18px; background: #f5ece6; border-radius: 18px; }
 
-.lista-habitos { margin: 0; padding: 0; list-style: none; }
-.habito { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--rosa-pastel); }
-.habito-nome { flex: 1; min-width: 120px; }
-.habito-feito .habito-nome { text-decoration: line-through; opacity: 0.6; }
-.habito input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--rosa-blush); }
-.habito small { padding: 2px 10px; background: var(--verde-sage); border-radius: 999px; }
+/* ---------- Progresso ---------- */
+.barra { height: 10px; background: #f3e9e4; border-radius: 999px; overflow: hidden; }
+.barra-preenchida {
+  height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, var(--verde-sage), var(--rosa-blush));
+  transition: width 0.4s ease;
+}
+.imagem-jardim { display: block; width: 80%; height: auto; margin: 20px auto 0; }
 
-.botao-pequeno { padding: 6px 12px; font: inherit; font-size: 0.85rem; color: var(--texto); background: var(--rosa-pastel); border: 0; border-radius: 999px; cursor: pointer; }
+/* ---------- Lista de hábitos (cartões) ---------- */
+.lista-habitos { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.habito {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+  padding: 16px 20px; background: var(--creme);
+  border: 1px solid var(--rosa-pastel); border-radius: 22px;
+  transition: background 0.2s ease;
+}
+.habito-feito { background: #e8efe3; border-color: var(--verde-sage); }
+.habito-nome { flex: 1; min-width: 120px; font-weight: 600; }
+.habito-feito .habito-nome { text-decoration: line-through; opacity: 0.65; }
+.habito-constancia { font-size: 0.85rem; opacity: 0.75; }
+
+/* A caixinha vira um círculo, mas continua sendo um checkbox */
+.habito input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none; flex: none;
+  width: 32px; height: 32px; margin: 0; cursor: pointer;
+  background: var(--branco); border: 2px solid var(--rosa-blush); border-radius: 50%;
+  display: grid; place-content: center;
+}
+.habito input[type="checkbox"]:checked { background: #4f6b49; border-color: #4f6b49; }
+.habito input[type="checkbox"]:checked::after { content: "✓"; color: var(--branco); font-size: 1rem; }
+
+.habito small {
+  padding: 3px 12px; font-size: 0.8rem; font-weight: 600;
+  background: var(--verde-sage); border-radius: 999px;
+}
+.botao-pequeno {
+  padding: 6px 14px; font: inherit; font-size: 0.85rem; color: var(--texto);
+  background: var(--rosa-pastel); border: 0; border-radius: 999px; cursor: pointer;
+}
 .botao-perigo { background: #f3d0d0; }
 
+/* ---------- Mensagens ---------- */
+.data { margin: 4px 0 24px; }
 .mensagem { min-height: 1.4em; margin: 0 0 12px; font-weight: 600; }
 .mensagem-sucesso { color: #4f7a45; }
 .mensagem-erro { color: #a33a4f; }
 
-/* Check-in de energia */
-.energia { display: flex; gap: 10px; margin-bottom: 12px; }
-.botao-energia {
-  flex: 1; padding: 12px; font: inherit; font-weight: 600; color: var(--texto);
-  background: var(--creme); border: 2px solid var(--rosa-pastel); border-radius: 14px; cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-.botao-energia-ativo { background: var(--rosa-pastel); border-color: var(--rosa-blush); }
-#energia-texto { margin: 0; }
 /* Garante que elementos com o atributo hidden fiquem escondidos */
-[hidden] {
-  display: none !important;
+[hidden] { display: none !important; }
+
+/* ---------- Celular e tablet ---------- */
+@media (max-width: 800px) {
+  .painel { grid-template-columns: 1fr; }
+  .saudacao-bloco { flex-direction: column; align-items: flex-start; }
+  .saudacao-bloco h1 { font-size: 2.4rem; }
+  .imagem-ramo { width: 70%; }
+  .cartao-app { padding: 22px; }
+  .topo-pagina { display: none; }
 }
