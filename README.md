@@ -3,8 +3,6 @@
 
 Aplicação web para acompanhamento de hábitos, metas pessoais e bem-estar emocional, com foco em ajudar a manter uma rotina de autocuidado de forma simples e acolhedora.
 
-🔗 **Site publicado:** https://analuisa-r.github.io/Bloom-app/
-
 ## Problema
 Manter hábitos saudáveis, metas pessoais e momentos de reflexão organizados costuma exigir o uso de vários aplicativos diferentes, o que dificulta a criação de uma rotina consistente de autocuidado.
 
