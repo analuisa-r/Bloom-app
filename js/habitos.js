@@ -102,6 +102,10 @@ function desenharLista() {
         ? 'Versão leve'
         : habito.categoria;
 
+        const constancia = document.createElement('span');
+    constancia.className = 'habito-constancia';
+    constancia.textContent = 'Constância: ' + calcularConstancia(habito.id) + '%';
+    
     const botaoEditar = document.createElement('button');
     botaoEditar.textContent = 'Editar';
     botaoEditar.className = 'botao-pequeno';
@@ -159,7 +163,7 @@ function desenharLista() {
       }
     });
 
-    item.append(caixa, texto, etiqueta, botaoEditar, botaoExcluir);
+    item.append(caixa, texto, etiqueta, constancia, botaoEditar, botaoExcluir);
     lista.appendChild(item);
   });
 

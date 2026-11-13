@@ -1,4 +1,6 @@
 // dados.js
+// Regras de negócio e acesso aos dados do Bloom.
+// Este arquivo NÃO mexe na tela (nada de "document" aqui).
 // Depende de storage.js (objeto "armazenamento").
 
 const CATEGORIAS = ['Estudos', 'Autocuidado', 'Organização', 'Bem-estar'];
@@ -216,4 +218,43 @@ function calcularProgressoDeHoje() {
   const porcentagem = total === 0 ? 0 : Math.round((feitos / total) * 100);
 
   return { feitos: feitos, total: total, porcentagem: porcentagem };
+}
+
+// ---------- Jardim e saudação ----------
+
+const PLANTAS_NO_JARDIM = 4;
+
+// RN13: quantas plantas do jardim estão floridas, pela porcentagem de hábitos
+// concluídos hoje. 0% = 0 | 1% a 33% = 1 | 34% a 66% = 2 | 67% a 99% = 3 | 100% = 4
+function estagioDoJardim(porcentagem) {
+  if (porcentagem <= 0) {
+    return 0;
+  }
+
+  if (porcentagem <= 33) {
+    return 1;
+  }
+
+  if (porcentagem <= 66) {
+    return 2;
+  }
+
+  if (porcentagem < 100) {
+    return 3;
+  }
+
+  return 4;
+}
+
+// RN14: Bom dia (até 11h), Boa tarde (12h às 17h), Boa noite (a partir das 18h).
+function saudacaoPorHora(hora) {
+  if (hora < 12) {
+    return 'Bom dia';
+  }
+
+  if (hora < 18) {
+    return 'Boa tarde';
+  }
+
+  return 'Boa noite';
 }
