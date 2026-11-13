@@ -147,3 +147,37 @@
   .cartao-app { padding: 22px; }
   .topo-pagina { display: none; }
 }
+
+/* ---------- Navegação principal ---------- */
+.menu-principal { display: flex; gap: 8px; }
+.menu-principal a {
+  padding: 8px 18px; color: var(--texto); text-decoration: none; border-radius: 999px;
+}
+.menu-principal a:hover { background: var(--rosa-pastel); }
+.menu-principal a[aria-current="page"] {
+  background: var(--rosa-pastel); border: 1px solid var(--rosa-blush); font-weight: 700;
+}
+
+/* ---------- Página Meu dia ---------- */
+.app-estreito { max-width: 800px; }
+.saudacao-bloco h1 em { color: var(--rosa-antigo); }
+.botao-energia svg { display: block; margin: 0 auto 8px; }
+.link-botao {
+  display: block; width: max-content; margin: 18px auto 0; padding: 12px 30px;
+  color: var(--rosa-antigo); border: 1.5px solid var(--rosa-antigo);
+  border-radius: 999px; font-weight: 700; text-decoration: none;
+}
+.link-botao:hover { background: var(--rosa-pastel); }
+
+.jardim-topo { display: flex; justify-content: space-between; align-items: flex-start; }
+.jardim-percentual {
+  font-family: 'Cormorant Garamond', Georgia, serif; font-size: 2.4rem; color: var(--rosa-antigo);
+}
+.jardim {
+  display: flex; justify-content: space-around; align-items: flex-end;
+  padding-top: 12px; border-bottom: 6px solid var(--verde-sage);
+}
+.planta { display: block; }
+.planta .planta-flor { display: none; }
+.planta-florida .planta-flor { display: block; }
+.planta-florida .planta-broto { display: none; }
