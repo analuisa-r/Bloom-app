@@ -258,3 +258,127 @@ function saudacaoPorHora(hora) {
 
   return 'Boa noite';
 }
+
+// ---------- Metas ----------
+
+function listarMetas() {
+  return armazenamento.ler('metas', []);
+}
+
+// RN08: toda meta tem título (mínimo 2 letras) e data-alvo, e a data-alvo
+// não pode ser anterior à data de criação da meta.
+// Devolve '' se está tudo certo, ou a mensagem do problema.
+function validarMeta(titulo, dataAlvo, dataMinima) {
+  if (titulo.trim().length < 2) {
+    return 'Digite um título com pelo menos 2 letras.';
+  }
+
+  if (dataAlvo === '') {
+    return 'Escolha a data-alvo da meta.';
+  }
+
+  if (dataAlvo < dataMinima) {
+    return 'A data-alvo não pode ser anterior à data de criação da meta.';
+  }
+
+  return '';
+}
+
+// Devolve '' se criou, ou a mensagem do problema.
+function criarMeta(titulo, descricao, dataAlvo) {
+  const erro = validarMeta(titulo, dataAlvo, dataDeHoje());
+
+  if (erro !== '') {
+    return erro;
+  }
+
+  const metas = listarMetas();
+
+  metas.push({
+    id: Date.now() + Math.random(),
+    titulo: titulo.trim(),
+    descricao: descricao.trim(),
+    dataAlvo: dataAlvo,
+    criadaEm: dataDeHoje(),
+    concluida: false
+  });
+
+  armazenamento.salvar('metas', metas);
+
+  return '';
+}
+
+// Devolve '' se editou, ou a mensagem do problema.
+function editarMeta(id, titulo, descricao, dataAlvo) {
+  const metas = listarMetas();
+  const indice = metas.findIndex(function (meta) {
+    return meta.id === id;
+  });
+
+  if (indice === -1) {
+    return 'Meta não encontrada.';
+  }
+
+  const erro = validarMeta(titulo, dataAlvo, metas[indice].criadaEm);
+
+  if (erro !== '') {
+    return erro;
+  }
+
+  metas[indice] = {
+    ...metas[indice],
+    titulo: titulo.trim(),
+    descricao: descricao.trim(),
+    dataAlvo: dataAlvo
+  };
+
+  armazenamento.salvar('metas', metas);
+
+  return '';
+}
+
+function excluirMeta(id) {
+  armazenamento.salvar('metas', listarMetas().filter(function (meta) {
+    return meta.id !== id;
+  }));
+}
+
+function alternarMetaConcluida(id) {
+  const metas = listarMetas().map(function (meta) {
+    return meta.id === id ? { ...meta, concluida: !meta.concluida } : meta;
+  });
+
+  armazenamento.salvar('metas', metas);
+}
+
+// Dias entre hoje e a data-alvo (negativo se o prazo já passou).
+function diasAteOPrazo(dataAlvo) {
+  const hoje = new Date(dataDeHoje() + 'T00:00:00');
+  const alvo = new Date(dataAlvo + 'T00:00:00');
+
+  return Math.round((alvo - hoje) / 86400000);
+}
+
+// RN09: meta concluída não conta como "em andamento".
+// RN15: meta não concluída com prazo vencido fica como "prazo passou"
+// (sem linguagem de cobrança, e a usuária pode editar o prazo).
+function situacaoDaMeta(meta) {
+  if (meta.concluida) {
+    return 'concluída';
+  }
+
+  return diasAteOPrazo(meta.dataAlvo) < 0 ? 'prazo passou' : 'em andamento';
+}
+
+function calcularResumoDeMetas() {
+  const metas = listarMetas();
+  const concluidas = metas.filter(function (meta) {
+    return meta.concluida;
+  }).length;
+
+  const porcentagem = metas.length === 0
+    ? 0
+    : Math.round((concluidas / metas.length) * 100);
+
+  return { concluidas: concluidas, total: metas.length, porcentagem: porcentagem };
+}
