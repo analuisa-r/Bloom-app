@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metas - Bloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app.css">
+</head>
+<body class="pagina-app">
+  <header class="topo">
+    <a class="logo" href="../index.html">Bloom 🌸</a>
+    <nav class="menu-principal" aria-label="Principal">
+      <a href="meu-dia.html">Meu dia</a>
+      <a href="habitos.html">Hábitos</a>
+      <a href="metas.html" aria-current="page">Metas</a>
+    </nav>
+  </header>
+
+  <main class="app">
+    <section class="saudacao-bloco">
+      <div>
+        <p class="rotulo">Seus sonhos, com data</p>
+        <h1>Minhas metas</h1>
+        <p class="saudacao-texto">Uma meta é um hábito que ganhou um destino. Escolha um prazo que caiba na sua vida.</p>
+      </div>
+    </section>
+
+    <p id="mensagem" class="mensagem" role="status"></p>
+
+    <div class="painel">
+      <div class="coluna">
+        <section class="cartao-app">
+          <p class="rotulo">Andamento</p>
+          <h2>Metas cuidadas</h2>
+          <p id="resumo-texto"></p>
+          <div class="barra"><div id="progresso-barra" class="barra-preenchida"></div></div>
+        </section>
+
+        <section class="cartao-app">
+          <p class="rotulo">Em cultivo</p>
+          <h2>Minhas metas</h2>
+          <p id="lista-vazia">Você ainda não tem metas. Plante a primeira ao lado.</p>
+          <ul id="lista-metas" class="lista-habitos"></ul>
+        </section>
+      </div>
+
+      <div class="coluna">
+        <form id="form-meta" class="cartao-app">
+          <p class="rotulo" id="rotulo-form">Nova meta</p>
+          <h2 id="titulo-form">Plantar uma meta</h2>
+          <label for="campo-titulo">Título</label>
+          <input id="campo-titulo" type="text" maxlength="60" placeholder="Ex.: Terminar o curso de inglês">
+          <label for="campo-descricao">Descrição (opcional)</label>
+          <textarea id="campo-descricao" maxlength="200" placeholder="Por que essa meta é importante para você?"></textarea>
+          <label for="campo-prazo">Data-alvo</label>
+          <input id="campo-prazo" type="date">
+          <button id="botao-salvar" class="botao" type="submit">Adicionar meta</button>
+          <button id="botao-cancelar" class="botao botao-secundario" type="button" hidden>Cancelar edição</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/dados.js"></script>
+  <script src="../js/metas.js"></script>
+</body>
+</html>
