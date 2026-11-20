@@ -202,3 +202,29 @@
 .habito-feito .meta-titulo { text-decoration: line-through; opacity: 0.65; }
 .meta-descricao, .meta-prazo { margin: 2px 0 0; font-size: 0.9rem; }
 .meta-prazo { opacity: 0.8; }
+
+/* ---------- Folhagens decorativas ---------- */
+.pagina-app::before,
+.pagina-app::after {
+  content: ""; position: fixed; z-index: 0; pointer-events: none;
+  width: 150px; height: 260px; border-radius: 0 100% 0 100%;
+  background: linear-gradient(135deg, #6E9078, #4F6B58); opacity: 0.9;
+}
+.pagina-app::before { left: -40px; top: 300px; transform: rotate(-20deg); }
+.pagina-app::after { right: -50px; top: 80px; transform: rotate(25deg) scaleX(-1); }
+.topo, .app { position: relative; z-index: 1; }
+
+@media (max-width: 800px) {
+  .pagina-app::before, .pagina-app::after { display: none; }
+}
+
+/* ---------- Página de hábitos ---------- */
+.titulo-pagina {
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  align-items: center; gap: 16px; margin-bottom: 28px;
+}
+.titulo-pagina h1 { margin: 0; font-size: 3rem; }
+.faixa-energia { margin: 0; padding: 10px 20px; background: var(--rosa-pastel); border-radius: 999px; }
+.faixa-energia a { margin-left: 8px; color: var(--rosa-antigo); font-weight: 700; }
+.aviso-energia { margin: 0 0 16px; padding: 14px 18px; background: #e6eee1; border-radius: 18px; }
+.habito-detalhe { display: block; margin-top: 2px; font-size: 0.9rem; font-weight: 400; }
