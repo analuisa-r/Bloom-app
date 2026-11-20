@@ -382,3 +382,103 @@ function calcularResumoDeMetas() {
 
   return { concluidas: concluidas, total: metas.length, porcentagem: porcentagem };
 }
+
+// ---------- Diário ----------
+
+const HUMORES = ['Leve', 'Tranquilo', 'Cansativo', 'Difícil'];
+
+function listarDiario() {
+  return armazenamento.ler('diario', []);
+}
+
+// Mais recentes primeiro (por data e, no mesmo dia, pela hora do registro).
+function listarDiarioOrdenado() {
+  return listarDiario().slice().sort(function (a, b) {
+    if (a.data !== b.data) {
+      return a.data < b.data ? 1 : -1;
+    }
+
+    return b.criadoEm - a.criadoEm;
+  });
+}
+
+// RN10: toda entrada tem data e texto não vazio.
+// RN16: a data não pode ser futura, e o humor do dia é obrigatório.
+// Devolve '' se está tudo certo, ou a mensagem do problema.
+function validarEntradaDeDiario(data, humor, texto) {
+  if (data === '') {
+    return 'Escolha a data do registro.';
+  }
+
+  if (data > dataDeHoje()) {
+    return 'A data do registro não pode ser futura.';
+  }
+
+  if (!HUMORES.includes(humor)) {
+    return 'Escolha como foi o seu dia.';
+  }
+
+  if (texto.trim() === '') {
+    return 'Escreva um pouco sobre o seu dia.';
+  }
+
+  return '';
+}
+
+// Devolve '' se salvou, ou a mensagem do problema.
+function criarEntradaDeDiario(data, humor, texto) {
+  const erro = validarEntradaDeDiario(data, humor, texto);
+
+  if (erro !== '') {
+    return erro;
+  }
+
+  const entradas = listarDiario();
+
+  entradas.push({
+    id: Date.now() + Math.random(),
+    data: data,
+    humor: humor,
+    texto: texto.trim(),
+    criadoEm: Date.now()
+  });
+
+  armazenamento.salvar('diario', entradas);
+
+  return '';
+}
+
+// Devolve '' se editou, ou a mensagem do problema.
+function editarEntradaDeDiario(id, data, humor, texto) {
+  const erro = validarEntradaDeDiario(data, humor, texto);
+
+  if (erro !== '') {
+    return erro;
+  }
+
+  const entradas = listarDiario();
+  const indice = entradas.findIndex(function (entrada) {
+    return entrada.id === id;
+  });
+
+  if (indice === -1) {
+    return 'Registro não encontrado.';
+  }
+
+  entradas[indice] = {
+    ...entradas[indice],
+    data: data,
+    humor: humor,
+    texto: texto.trim()
+  };
+
+  armazenamento.salvar('diario', entradas);
+
+  return '';
+}
+
+function excluirEntradaDeDiario(id) {
+  armazenamento.salvar('diario', listarDiario().filter(function (entrada) {
+    return entrada.id !== id;
+  }));
+}
