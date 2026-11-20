@@ -228,3 +228,24 @@
 .faixa-energia a { margin-left: 8px; color: var(--rosa-antigo); font-weight: 700; }
 .aviso-energia { margin: 0 0 16px; padding: 14px 18px; background: #e6eee1; border-radius: 18px; }
 .habito-detalhe { display: block; margin-top: 2px; font-size: 0.9rem; font-weight: 400; }
+
+/* ---------- Página do diário ---------- */
+.cartao-app .campo-grande { min-height: 160px; }
+
+.humores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.cartao-app .humor {
+  display: flex; align-items: center; gap: 8px; margin: 0;
+  padding: 8px 16px; font-weight: 600; cursor: pointer;
+  background: var(--creme); border: 1px solid var(--rosa-pastel); border-radius: 999px;
+}
+.humor input { accent-color: var(--rosa-antigo); }
+
+.entrada {
+  padding: 18px 20px; background: var(--creme);
+  border: 1px solid var(--rosa-pastel); border-radius: 22px;
+}
+.entrada-topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.entrada-data::first-letter { text-transform: uppercase; }
+.entrada-humor { padding: 3px 12px; font-size: 0.8rem; font-weight: 600; background: var(--verde-sage); border-radius: 999px; }
+.entrada-texto { margin: 10px 0 14px; white-space: pre-wrap; }
+.entrada-acoes { display: flex; gap: 10px; }
