@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diário - Bloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app.css">
+</head>
+<body class="pagina-app">
+  <header class="topo">
+    <a class="logo" href="../index.html">Bloom 🌸</a>
+    <nav class="menu-principal" aria-label="Principal">
+      <a href="meu-dia.html">Meu dia</a>
+      <a href="habitos.html">Hábitos</a>
+      <a href="metas.html">Metas</a>
+      <a href="diario.html" aria-current="page">Diário</a>
+    </nav>
+  </header>
+
+  <main class="app">
+    <section class="saudacao-bloco">
+      <div>
+        <p class="rotulo">Um cantinho só seu</p>
+        <h1>Meu diário</h1>
+        <p class="saudacao-texto">Escreva como foi o seu dia, do jeito que vier. Ninguém além de você lê estas páginas.</p>
+      </div>
+    </section>
+
+    <p id="mensagem" class="mensagem" role="status"></p>
+
+    <div class="painel">
+      <div class="coluna">
+        <section class="cartao-app">
+          <p class="rotulo">Registros</p>
+          <h2>Meus dias</h2>
+          <p id="lista-vazia">Você ainda não escreveu nada. Comece pelo formulário ao lado.</p>
+          <ul id="lista-diario" class="lista-habitos"></ul>
+        </section>
+      </div>
+
+      <div class="coluna">
+        <form id="form-diario" class="cartao-app">
+          <p class="rotulo" id="rotulo-form">Novo registro</p>
+          <h2 id="titulo-form">Como foi o seu dia?</h2>
+          <label for="campo-data">Data</label>
+          <input id="campo-data" type="date">
+          <label id="rotulo-humor">Meu dia foi</label>
+          <div id="humores" class="humores" role="radiogroup" aria-labelledby="rotulo-humor"></div>
+          <label for="campo-texto">Anotações</label>
+          <textarea id="campo-texto" class="campo-grande" maxlength="1000" placeholder="O que aconteceu? Como você se sentiu?"></textarea>
+          <button id="botao-salvar" class="botao" type="submit">Salvar registro</button>
+          <button id="botao-cancelar" class="botao botao-secundario" type="button" hidden>Cancelar edição</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/dados.js"></script>
+  <script src="../js/interface.js"></script>
+  <script src="../js/diario.js"></script>
+</body>
+</html>
