@@ -1,60 +1,49 @@
 // habitos.js
 // Tela de hábitos: desenha a página e reage aos cliques.
+// Regras e dados ficam em dados.js; funções de tela em interface.js.
 
-const elemento = function (id) {
-  return document.getElementById(id);
+const ROTULOS_DE_ENERGIA = {
+  baixa: 'Baixa · Em botão',
+  média: 'Média · Abrindo',
+  alta: 'Alta · Florida'
 };
 
-function mostrarMensagem(texto, tipo) {
-  const caixa = elemento('mensagem');
-
-  caixa.textContent = texto;
-  caixa.className = 'mensagem mensagem-' + tipo;
-
-  setTimeout(function () {
-    caixa.className = 'mensagem';
-    caixa.textContent = '';
-  }, 3000);
-}
+const AVISOS_DE_ENERGIA = {
+  baixa: 'Hoje o Bloom mostra a versão leve dos seus hábitos. Fazer o pouco também conta.',
+  média: 'Um dia de ritmo normal. Siga no seu tempo.',
+  alta: 'Dia de energia boa! Aproveite para avançar nos seus hábitos.'
+};
 
 // ---------- Desenho da tela ----------
-
-function desenharSaudacao() {
-  const nome = lerNome();
-
-  elemento('form-nome').hidden = nome !== '';
-  elemento('painel').hidden = nome === '';
-
-  elemento('saudacao').textContent = nome
-    ? 'Olá, ' + nome + '!'
-    : 'Bem-vinda ao Bloom';
-
-  elemento('data-hoje').textContent = new Date().toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long'
-  });
-}
 
 function desenharEnergia() {
   const registrada = lerEnergiaDeHoje();
 
-  document.querySelectorAll('.botao-energia').forEach(function (botao) {
-    const selecionado = botao.dataset.nivel === registrada;
+  elemento('energia-atual').textContent = registrada
+    ? ROTULOS_DE_ENERGIA[registrada]
+    : 'ainda não registrada';
 
-    botao.classList.toggle('botao-energia-ativo', selecionado);
-    botao.setAttribute('aria-pressed', String(selecionado));
-  });
+  elemento('link-energia').textContent = registrada ? 'mudar' : 'registrar';
 
-  const textos = {
-    baixa: 'Hoje o Bloom mostra a versão leve dos seus hábitos. Fazer o pouco também conta.',
-    média: 'Um dia de ritmo normal. Siga no seu tempo.',
-    alta: 'Dia de energia boa! Aproveite para avançar nos seus hábitos.'
-  };
-
-  elemento('energia-texto').textContent = registrada
-    ? textos[registrada]
+  elemento('aviso-energia').textContent = registrada
+    ? AVISOS_DE_ENERGIA[registrada]
     : 'Você ainda não registrou sua energia hoje. Enquanto isso, o Bloom considera energia média.';
+}
+
+function montarDetalheDoHabito(habito, registro, modoMinimo) {
+  const partes = [];
+
+  if (registro && registro.versao === 'mínima') {
+    partes.push('Concluído na versão mínima');
+  } else if (modoMinimo) {
+    partes.push('Versão completa: ' + habito.nome);
+  } else if ((habito.versaoMinima || '') !== '') {
+    partes.push('Versão mínima: ' + habito.versaoMinima);
+  }
+
+  partes.push('Constância: ' + calcularConstancia(habito.id) + '%');
+
+  return partes.join(' · ');
 }
 
 function desenharLista() {
@@ -86,27 +75,26 @@ function desenharLista() {
 
     caixa.addEventListener('change', function () {
       alternarConclusao(habito.id);
-      desenharTudo();
+      desenharLista();
     });
 
-    const texto = document.createElement('span');
+    const texto = document.createElement('div');
     texto.className = 'habito-nome';
-    texto.textContent = modoMinimo
-      ? habito.versaoMinima
-      : habito.nome;
+
+    const principal = document.createElement('strong');
+    principal.textContent = modoMinimo ? habito.versaoMinima : habito.nome;
+
+    const detalhe = document.createElement('span');
+    detalhe.className = 'habito-detalhe';
+    detalhe.textContent = montarDetalheDoHabito(habito, registro, modoMinimo);
+
+    texto.append(principal, detalhe);
 
     const etiqueta = document.createElement('small');
-    etiqueta.textContent = feito
-      ? 'Versão ' + registro.versao
-      : modoMinimo
-        ? 'Versão leve'
-        : habito.categoria;
+    etiqueta.textContent = habito.categoria;
 
-        const constancia = document.createElement('span');
-    constancia.className = 'habito-constancia';
-    constancia.textContent = 'Constância: ' + calcularConstancia(habito.id) + '%';
-    
     const botaoEditar = document.createElement('button');
+    botaoEditar.type = 'button';
     botaoEditar.textContent = 'Editar';
     botaoEditar.className = 'botao-pequeno';
 
@@ -135,23 +123,17 @@ function desenharLista() {
         return;
       }
 
-      const atualizado = editarHabito(
-        habito.id,
-        novoNome,
-        novaCategoria,
-        novaVersao
-      );
-
-      if (!atualizado) {
+      if (!editarHabito(habito.id, novoNome, novaCategoria, novaVersao)) {
         mostrarMensagem('Verifique o nome e a categoria.', 'erro');
         return;
       }
 
       mostrarMensagem('Hábito atualizado.', 'sucesso');
-      desenharTudo();
+      desenharLista();
     });
 
     const botaoExcluir = document.createElement('button');
+    botaoExcluir.type = 'button';
     botaoExcluir.textContent = 'Excluir';
     botaoExcluir.className = 'botao-pequeno botao-perigo';
 
@@ -159,56 +141,23 @@ function desenharLista() {
       if (confirm('Excluir o hábito "' + habito.nome + '"?')) {
         excluirHabito(habito.id);
         mostrarMensagem('Hábito excluído.', 'sucesso');
-        desenharTudo();
+        desenharLista();
       }
     });
 
-    item.append(caixa, texto, etiqueta, constancia, botaoEditar, botaoExcluir);
+    item.append(caixa, texto, etiqueta, botaoEditar, botaoExcluir);
     lista.appendChild(item);
   });
 
   elemento('lista-vazia').hidden = habitos.length > 0;
 }
 
-function desenharProgresso() {
-  const progresso = calcularProgressoDeHoje();
-
-  elemento('progresso-texto').textContent =
-    progresso.feitos + ' de ' + progresso.total + ' hábitos concluídos hoje';
-
-  elemento('progresso-barra').style.width = progresso.porcentagem + '%';
-}
-
 function desenharTudo() {
-  desenharSaudacao();
   desenharEnergia();
   desenharLista();
-  desenharProgresso();
 }
 
 // ---------- Eventos ----------
-
-elemento('form-nome').addEventListener('submit', function (evento) {
-  evento.preventDefault();
-
-  if (!salvarNome(elemento('campo-nome').value)) {
-    mostrarMensagem('Digite um nome com pelo menos 2 letras.', 'erro');
-    return;
-  }
-
-  desenharTudo();
-});
-
-document.querySelectorAll('.botao-energia').forEach(function (botao) {
-  botao.addEventListener('click', function () {
-    if (!salvarEnergiaDeHoje(botao.dataset.nivel)) {
-      mostrarMensagem('Nível de energia inválido.', 'erro');
-      return;
-    }
-
-    desenharTudo();
-  });
-});
 
 elemento('form-habito').addEventListener('submit', function (evento) {
   evento.preventDefault();
@@ -226,7 +175,7 @@ elemento('form-habito').addEventListener('submit', function (evento) {
   elemento('campo-minima').value = '';
 
   mostrarMensagem('Hábito criado!', 'sucesso');
-  desenharTudo();
+  desenharLista();
 });
 
 CATEGORIAS.forEach(function (categoria) {

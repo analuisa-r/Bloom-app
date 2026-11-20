@@ -14,63 +14,36 @@
   <header class="topo">
     <a class="logo" href="../index.html">Bloom 🌸</a>
     <nav class="menu-principal" aria-label="Principal">
-  <a href="meu-dia.html">Meu dia</a>
-  <a href="habitos.html" aria-current="page">Hábitos</a>
-    <a href="metas.html">Metas</a>
-</nav>
+      <a href="meu-dia.html">Meu dia</a>
+      <a href="habitos.html" aria-current="page">Hábitos</a>
+      <a href="metas.html">Metas</a>
+    </nav>
   </header>
 
   <main class="app">
-    <section class="saudacao-bloco">
+    <div class="titulo-pagina">
       <div>
-        <p id="data-hoje" class="rotulo"></p>
-        <h1 id="saudacao">Bem-vinda ao Bloom</h1>
-        <p class="saudacao-texto">
-          Cada flor desabrocha no seu tempo. Você também pode florescer
-          no seu próprio ritmo, um pequeno cuidado de cada vez.
-        </p>
+        <p class="rotulo">Hoje</p>
+        <h1>Meus hábitos</h1>
       </div>
-         <img class="imagem-ramo" src="../assets/botanical-sprig.png" alt="" onerror="this.style.display='none'">
-    </section>
+      <p class="faixa-energia">
+        Energia de hoje: <strong id="energia-atual"></strong>
+        <a id="link-energia" href="meu-dia.html">mudar</a>
+      </p>
+    </div>
 
     <p id="mensagem" class="mensagem" role="status"></p>
 
-    <form id="form-nome" class="cartao-app">
-      <label for="campo-nome">Como você quer ser chamada?</label>
-      <input id="campo-nome" type="text" maxlength="30" placeholder="Seu nome">
-      <button class="botao" type="submit">Começar</button>
-    </form>
-
-    <div id="painel" class="painel" hidden>
+    <div class="painel">
       <div class="coluna">
         <section class="cartao-app">
-          <p class="rotulo">Check-in</p>
-          <h2>Como está sua energia hoje?</h2>
-          <div class="energia">
-            <button type="button" class="botao-energia" data-nivel="baixa">Baixa<small>Em botão</small></button>
-            <button type="button" class="botao-energia" data-nivel="média">Média<small>Abrindo</small></button>
-            <button type="button" class="botao-energia" data-nivel="alta">Alta<small>Florida</small></button>
-          </div>
-          <p id="energia-texto" class="energia-texto"></p>
-        </section>
-
-        <section class="cartao-app">
-          <p class="rotulo">Hoje</p>
-          <h2>Meus hábitos</h2>
+          <p id="aviso-energia" class="aviso-energia"></p>
           <p id="lista-vazia">Você ainda não tem hábitos. Plante o primeiro ao lado.</p>
           <ul id="lista-habitos" class="lista-habitos"></ul>
         </section>
       </div>
 
       <div class="coluna">
-        <section class="cartao-app">
-          <p class="rotulo">Progresso de hoje</p>
-          <h2>Seu jardim</h2>
-          <p id="progresso-texto"></p>
-          <div class="barra"><div id="progresso-barra" class="barra-preenchida"></div></div>
-          <img class="imagem-jardim" src="../assets/garden.jpg" alt="" onerror="this.style.display='none'">
-        </section>
-
         <form id="form-habito" class="cartao-app">
           <p class="rotulo">Novo hábito</p>
           <h2>Plantar uma semente</h2>
@@ -89,6 +62,7 @@
 
   <script src="../js/storage.js"></script>
   <script src="../js/dados.js"></script>
+  <script src="../js/interface.js"></script>
   <script src="../js/habitos.js"></script>
 </body>
 </html>
