@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumo do projeto - Bloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app.css">
+  <style>
+    /* Estilos exclusivos desta página de resumo (feita para caber em uma folha A4). */
+    .resumo { max-width: 1000px; margin: 0 auto; padding: 24px 24px 48px; }
+    .resumo-cabecalho { margin-bottom: 20px; }
+    .resumo-cabecalho h1 { margin: 4px 0 0; font-size: 3.2rem; line-height: 1; }
+    .resumo-slogan { margin: 4px 0 0; font-size: 1.15rem; }
+    .resumo-grade { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .resumo-bloco { padding: 18px 20px; background: rgba(255, 255, 255, 0.8); border: 1px solid var(--rosa-pastel); border-radius: 20px; }
+    .resumo-bloco h2 { margin: 0 0 8px; font-size: 1.5rem; }
+    .resumo-bloco p, .resumo-bloco li { margin: 0 0 6px; font-size: 0.93rem; line-height: 1.45; }
+    .resumo-bloco ul { margin: 0; padding-left: 18px; }
+    .resumo-bloco h3 { margin: 10px 0 4px; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
+    .resumo-pronto { margin-bottom: 8px; }
+    .resumo-rodape { margin-top: 16px; font-size: 0.9rem; }
+    .resumo-rodape a { color: var(--rosa-antigo); font-weight: 700; }
+    .sem-impressao { display: inline-block; margin-top: 14px; color: var(--rosa-antigo); font-weight: 700; }
+
+    @media (max-width: 800px) { .resumo-grade { grid-template-columns: 1fr; } }
+
+    @media print {
+      @page { size: A4; margin: 10mm; }
+      body.pagina-app { background: #fff; font-size: 10pt; }
+      .pagina-app::before, .pagina-app::after, .sem-impressao { display: none; }
+      .resumo { max-width: none; padding: 0; }
+      .resumo-cabecalho h1 { font-size: 2.4rem; }
+      .resumo-grade { gap: 10px; }
+      .resumo-bloco { padding: 10px 14px; border-radius: 12px; box-shadow: none; break-inside: avoid; }
+      .resumo-bloco h2 { font-size: 1.2rem; margin-bottom: 4px; }
+      .resumo-bloco p, .resumo-bloco li { font-size: 0.82rem; line-height: 1.35; margin-bottom: 3px; }
+    }
+  </style>
+</head>
+<body class="pagina-app">
+  <main class="resumo">
+    <header class="resumo-cabecalho">
+      <p class="rotulo">Resumo do projeto · Aplicação web · Projeto acadêmico individual (ADS)</p>
+      <h1>Bloom 🌸</h1>
+      <p class="resumo-slogan">Floresça um dia de cada vez.</p>
+      <a class="sem-impressao" href="../index.html">← Voltar ao Bloom</a>
+    </header>
+
+    <div class="resumo-grade">
+      <div class="coluna">
+        <section class="resumo-bloco">
+          <h2>O problema</h2>
+          <p>Apps de hábitos costumam cobrar o mesmo de você todo dia. Quando o dia é pesado, a pessoa não cumpre nada, perde a sequência, sente culpa e desiste. Isso é comum em quem acumula estudo, trabalho, casa e cuidado com outras pessoas.</p>
+          <h3>Público</h3>
+          <p>Mulheres jovens, estudantes e profissionais, com rotina cheia, que querem constância sem se cobrar demais.</p>
+        </section>
+
+        <section class="resumo-bloco">
+          <h2>A solução</h2>
+          <p>O Bloom adapta o dia à <strong>energia</strong> da usuária. Ela faz um check-in (baixa, média ou alta) e, em dias de pouca energia, o app mostra a <strong>versão mínima</strong> de cada hábito.</p>
+          <p>A <strong>constância dos últimos 30 dias</strong> substitui a sequência: dias ruins reduzem a porcentagem, mas nunca zeram o progresso.</p>
+          <p>O progresso do dia vira um <strong>jardim</strong> de quatro plantas, que florescem conforme os hábitos concluídos.</p>
+          <h3>Posicionamento</h3>
+          <p>Adaptar hábitos à energia já existe em apps comerciais. O recorte do Bloom é o público, o idioma (português), a gratuidade, a ausência de cadastro e a metáfora do jardim, desenvolvidos como projeto de aprendizagem.</p>
+        </section>
+
+        <section class="resumo-bloco">
+          <h2>Decisões técnicas</h2>
+          <ul>
+            <li>HTML, CSS e JavaScript puros, sem frameworks, para manter o código compreensível.</li>
+            <li>Dados no <strong>localStorage</strong>, sem cadastro nem login. Todo o acesso passa por <code>storage.js</code>, o que permite trocar por um banco de dados no futuro.</li>
+            <li><strong>Limitação assumida:</strong> os dados ficam no aparelho e no navegador, e podem se perder se o navegador for limpo.</li>
+            <li>Código separado em armazenamento, regras de negócio (<code>dados.js</code>) e tela (um arquivo por página).</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="coluna">
+        <section class="resumo-bloco">
+          <h2>O que já funciona</h2>
+          <ul class="resumo-pronto">
+            <li><strong>Landing page</strong> publicada.</li>
+            <li><strong>Meu dia:</strong> saudação, check-in de energia e jardim.</li>
+            <li><strong>Hábitos:</strong> criar, editar, excluir e concluir, com categorias, versão mínima e constância.</li>
+            <li><strong>Metas:</strong> título, descrição e prazo, com andamento.</li>
+            <li><strong>Diário:</strong> registros com data e humor do dia, com edição e exclusão.</li>
+          </ul>
+          <h3>Planejado</h3>
+          <ul>
+            <li>Página de Progresso (resumo semanal).</li>
+            <li>Retrospectiva semanal: energia, humor e hábitos.</li>
+            <li>Frase motivacional do dia.</li>
+            <li>Plano de testes e execução dos casos.</li>
+          </ul>
+        </section>
+
+        <section class="resumo-bloco">
+          <h2>Processo e qualidade</h2>
+          <ul>
+            <li><strong>Git e GitHub</strong> com commits pequenos e mensagens padronizadas (<code>feat</code>, <code>fix</code>, <code>style</code>, <code>docs</code>, <code>refactor</code>).</li>
+            <li><strong>Deploy</strong> contínuo no GitHub Pages.</li>
+            <li><strong>Documentação</strong> na pasta <code>docs/</code>: requisitos (funcionais, não funcionais e regras de negócio), decisão do projeto e plano de testes (em elaboração).</li>
+            <li><strong>Regras testáveis</strong> com valores-limite, como os estágios do jardim (33% e 34%), a data-alvo das metas e o tamanho mínimo de nomes.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <p class="resumo-rodape">
+      Site: <a href="https://analuisa-r.github.io/Bloom-app/">analuisa-r.github.io/Bloom-app</a> ·
+      Repositório: <a href="https://github.com/analuisa-r/Bloom-app">github.com/analuisa-r/Bloom-app</a>
+    </p>
+  </main>
+</body>
+</html>
