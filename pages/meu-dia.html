@@ -7,93 +7,82 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/componentes.css">
+  <link rel="stylesheet" href="../css/cabecalho.css">
+  <link rel="stylesheet" href="../css/paginas.css">
 </head>
-<body class="pagina-app">
-  <header class="topo">
-    <a class="logo" href="../index.html">Bloom 🌸</a>
-    <nav class="menu-principal" aria-label="Principal">
-      <a href="meu-dia.html" aria-current="page">Meu dia</a>
-      <a href="habitos.html">Hábitos</a>
-     <a href="metas.html">Metas</a>
-     <a href="diario.html">Diário</a>
-    </nav>
-  </header>
+<body class="pagina">
+  <header id="cabecalho" data-pagina="meu-dia" data-raiz=".."></header>
 
-  <main class="app app-estreito">
-    <section class="saudacao-bloco">
-      <div>
-        <p id="data-hoje" class="rotulo"></p>
-        <h1 id="saudacao">Bem-vinda ao Bloom</h1>
-        <p class="saudacao-texto">Cada flor desabrocha no seu tempo. Como está a sua energia hoje?</p>
-      </div>
-      <img class="imagem-ramo" src="../assets/botanical-sprig.png" alt="" onerror="this.style.display='none'">
+  <main class="conteudo">
+    <section class="saudacao">
+      <h1 id="saudacao" data-texto="tratamento.boasVindas"></h1>
+      <p id="data-hoje" class="texto-suave"></p>
     </section>
 
     <p id="mensagem" class="mensagem" role="status"></p>
 
-    <form id="form-nome" class="cartao-app">
-      <label for="campo-nome">Como você quer ser chamada?</label>
-      <input id="campo-nome" type="text" maxlength="30" placeholder="Seu nome">
-      <button class="botao" type="submit">Começar</button>
+    <form id="form-nome" class="cartao" hidden>
+      <label class="campo-rotulo" for="campo-nome" data-texto="tratamento.perguntaNome"></label>
+      <input class="campo-entrada" id="campo-nome" type="text" maxlength="30" autocomplete="given-name" placeholder="Seu nome">
+      <button class="botao botao-bloco" type="submit" style="margin-top: var(--espaco-4)">Começar</button>
     </form>
 
-    <div id="painel" hidden>
-      <section class="cartao-app">
-        <p class="rotulo">Check-in</p>
-        <h2>Como está sua energia hoje?</h2>
-        <div class="energia">
-          <button type="button" class="botao-energia" data-nivel="baixa">
-            <svg width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 58 C34 82 38 96 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="88" rx="12" ry="5" transform="rotate(-30 22 88)" fill="#7C9A82"/><path d="M36 22 C50 36 48 56 36 60 C24 56 22 36 36 22Z" fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"/></svg>
-            Baixa<small>Em botão</small>
-          </button>
-          <button type="button" class="botao-energia" data-nivel="média">
-            <svg width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 54 C34 80 38 95 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="86" rx="12" ry="5" transform="rotate(-30 22 86)" fill="#7C9A82"/><g fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"><ellipse cx="24" cy="38" rx="9" ry="20" transform="rotate(-28 36 56)"/><ellipse cx="48" cy="38" rx="9" ry="20" transform="rotate(28 36 56)"/><ellipse cx="36" cy="34" rx="10" ry="22"/></g></svg>
-            Média<small>Abrindo</small>
-          </button>
-          <button type="button" class="botao-energia" data-nivel="alta">
-            <svg width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 54 C34 80 38 95 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="86" rx="12" ry="5" transform="rotate(-30 22 86)" fill="#7C9A82"/><g fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"><ellipse cx="36" cy="26" rx="10" ry="19"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(72 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(144 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(216 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(288 36 42)"/></g><circle cx="36" cy="42" r="6" fill="#E3B66F"/></svg>
-            Alta<small>Florida</small>
-          </button>
-        </div>
-        <p id="energia-texto" class="energia-texto"></p>
-        <a id="ir-habitos" class="link-botao" href="habitos.html" hidden>Ver meus hábitos de hoje →</a>
-      </section>
-
-      <section class="cartao-app">
-        <div class="jardim-topo">
-          <div>
-            <p class="rotulo">Progresso de hoje</p>
-            <h2>Seu jardim</h2>
+    <div id="painel" class="meu-dia-grade" hidden>
+      <div class="coluna">
+        <section class="cartao" aria-labelledby="titulo-energia">
+          <h2 id="titulo-energia">Como está sua energia hoje?</h2>
+          <div class="energia-opcoes">
+            <button type="button" class="opcao" data-nivel="baixa" aria-pressed="false">
+              <svg class="ilustracao" width="64" height="96" aria-hidden="true"><use href="../assets/icones.svg#flor-botao"></use></svg>
+              <strong data-texto="energia.baixa.nome"></strong><span data-texto="energia.baixa.estagio"></span>
+            </button>
+            <button type="button" class="opcao" data-nivel="média" aria-pressed="false">
+              <svg class="ilustracao" width="64" height="96" aria-hidden="true"><use href="../assets/icones.svg#flor-abrindo"></use></svg>
+              <strong data-texto="energia.média.nome"></strong><span data-texto="energia.média.estagio"></span>
+            </button>
+            <button type="button" class="opcao" data-nivel="alta" aria-pressed="false">
+              <svg class="ilustracao" width="64" height="96" aria-hidden="true"><use href="../assets/icones.svg#flor-florida"></use></svg>
+              <strong data-texto="energia.alta.nome"></strong><span data-texto="energia.alta.estagio"></span>
+            </button>
           </div>
-          <span id="jardim-percentual" class="jardim-percentual">0%</span>
-        </div>
-        <p id="jardim-texto"></p>
-        <div id="jardim" class="jardim" role="img">
-          <span class="planta">
-            <svg class="planta-broto" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 58 C34 82 38 96 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="88" rx="12" ry="5" transform="rotate(-30 22 88)" fill="#7C9A82"/><path d="M36 22 C50 36 48 56 36 60 C24 56 22 36 36 22Z" fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"/></svg>
-            <svg class="planta-flor" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 54 C34 80 38 95 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="86" rx="12" ry="5" transform="rotate(-30 22 86)" fill="#7C9A82"/><g fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"><ellipse cx="36" cy="26" rx="10" ry="19"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(72 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(144 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(216 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(288 36 42)"/></g><circle cx="36" cy="42" r="6" fill="#E3B66F"/></svg>
-          </span>
-          <span class="planta">
-            <svg class="planta-broto" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 58 C34 82 38 96 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="88" rx="12" ry="5" transform="rotate(-30 22 88)" fill="#7C9A82"/><path d="M36 22 C50 36 48 56 36 60 C24 56 22 36 36 22Z" fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"/></svg>
-            <svg class="planta-flor" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 54 C34 80 38 95 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="86" rx="12" ry="5" transform="rotate(-30 22 86)" fill="#7C9A82"/><g fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"><ellipse cx="36" cy="26" rx="10" ry="19"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(72 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(144 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(216 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(288 36 42)"/></g><circle cx="36" cy="42" r="6" fill="#E3B66F"/></svg>
-          </span>
-          <span class="planta">
-            <svg class="planta-broto" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 58 C34 82 38 96 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="88" rx="12" ry="5" transform="rotate(-30 22 88)" fill="#7C9A82"/><path d="M36 22 C50 36 48 56 36 60 C24 56 22 36 36 22Z" fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"/></svg>
-            <svg class="planta-flor" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 54 C34 80 38 95 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="86" rx="12" ry="5" transform="rotate(-30 22 86)" fill="#7C9A82"/><g fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"><ellipse cx="36" cy="26" rx="10" ry="19"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(72 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(144 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(216 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(288 36 42)"/></g><circle cx="36" cy="42" r="6" fill="#E3B66F"/></svg>
-          </span>
-          <span class="planta">
-            <svg class="planta-broto" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 58 C34 82 38 96 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="88" rx="12" ry="5" transform="rotate(-30 22 88)" fill="#7C9A82"/><path d="M36 22 C50 36 48 56 36 60 C24 56 22 36 36 22Z" fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"/></svg>
-            <svg class="planta-flor" width="64" height="96" viewBox="0 0 72 110" aria-hidden="true"><path d="M36 54 C34 80 38 95 36 110" stroke="#4F6B58" stroke-width="3" fill="none"/><ellipse cx="22" cy="86" rx="12" ry="5" transform="rotate(-30 22 86)" fill="#7C9A82"/><g fill="#F3C2D3" stroke="#E7A1BB" stroke-width="1"><ellipse cx="36" cy="26" rx="10" ry="19"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(72 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(144 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(216 36 42)"/><ellipse cx="36" cy="26" rx="10" ry="19" transform="rotate(288 36 42)"/></g><circle cx="36" cy="42" r="6" fill="#E3B66F"/></svg>
-          </span>
-        </div>
-      </section>
+          <p id="energia-aviso" class="aviso" style="margin-bottom: 0"></p>
+        </section>
+
+        <section class="cartao" aria-labelledby="titulo-habitos">
+          <div class="cartao-topo">
+            <h2 id="titulo-habitos">Seus hábitos de hoje</h2>
+            <a href="habitos.html">Ver todos</a>
+          </div>
+          <p id="lista-vazia">Você ainda não tem hábitos. <a href="habitos.html">Plante o primeiro</a>.</p>
+          <ul id="lista-habitos" class="lista-checklist"></ul>
+        </section>
+      </div>
+
+      <div class="coluna">
+        <section class="cartao" aria-labelledby="titulo-jardim">
+          <div class="cartao-topo">
+            <h2 id="titulo-jardim">Seu jardim</h2>
+            <p id="jardim-percentual" class="jardim-percentual">0%</p>
+          </div>
+          <p id="jardim-texto"></p>
+          <div id="jardim-barra" class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="jardim-texto">
+            <div id="jardim-preenchido" class="barra-preenchida"></div>
+          </div>
+          <ul id="jardim" class="jardim-lista"></ul>
+        </section>
+      </div>
     </div>
   </main>
 
   <script src="../js/storage.js"></script>
   <script src="../js/dados.js"></script>
+  <script src="../js/textos.js"></script>
+  <script src="../js/svg.js"></script>
+  <script src="../js/cabecalho.js"></script>
+  <script src="../js/interface.js"></script>
+  <script src="../js/lista-habitos.js"></script>
   <script src="../js/meu-dia.js"></script>
 </body>
 </html>

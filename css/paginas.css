@@ -1,0 +1,49 @@
+/* paginas.css
+   Layout de cada página (usa tokens.css e componentes.css). */
+
+body.pagina {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(248, 220, 232, 0.7), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(200, 216, 192, 0.45), transparent 50%),
+    var(--cor-creme);
+  background-attachment: fixed;
+}
+
+.conteudo { max-width: var(--largura-conteudo); margin: 0 auto; padding: var(--espaco-5) var(--espaco-4) var(--espaco-8); }
+.coluna { display: flex; flex-direction: column; gap: var(--espaco-5); }
+.cartao h2 { margin-bottom: var(--espaco-4); }
+.cartao-topo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--espaco-2); }
+.cartao-topo a { font-weight: 700; }
+
+/* ---------- Meu dia ---------- */
+.saudacao { margin-bottom: var(--espaco-5); }
+.saudacao h1 { margin-bottom: var(--espaco-1); }
+.saudacao h1 em { color: var(--cor-vinho); }
+.saudacao p { margin: 0; }
+
+.meu-dia-grade { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--espaco-5); align-items: start; }
+.energia-opcoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--espaco-3); margin-bottom: var(--espaco-4); }
+.energia-opcoes .opcao strong { font-size: 1.05rem; }
+
+.lista-checklist { display: flex; flex-direction: column; gap: var(--espaco-3); margin: 0; padding: 0; list-style: none; }
+.item-habito {
+  display: flex; align-items: center; gap: var(--espaco-3);
+  padding: var(--espaco-3) var(--espaco-4); background: var(--cor-branco);
+  border: 1px solid var(--cor-borda); border-radius: var(--raio-medio);
+}
+.item-habito-feito { background: var(--cor-sage-claro); border-color: var(--cor-sage); }
+.item-habito-texto { flex: 1; min-width: 0; cursor: pointer; }
+.item-habito-nome { display: block; font-weight: 700; }
+.item-habito-feito .item-habito-nome { text-decoration: line-through; }
+.item-habito-detalhe { display: block; font-size: var(--texto-pequeno); color: var(--cor-texto-suave); }
+
+.jardim-percentual { margin: 0; font-family: var(--fonte-titulo); font-size: 2.2rem; color: var(--cor-vinho); line-height: 1; }
+.jardim-lista {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: var(--espaco-3);
+  margin: var(--espaco-4) 0 0; padding: 0 0 var(--espaco-1); list-style: none; border-bottom: 6px solid var(--cor-sage);
+}
+.jardim-mais { align-self: center; font-weight: 700; }
+
+@media (max-width: 800px) {
+  .meu-dia-grade { grid-template-columns: 1fr; }
+}

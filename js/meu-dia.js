@@ -1,22 +1,6 @@
 // meu-dia.js
-// Tela "Meu dia": saudação, check-in de energia e jardim.
-// Regras e dados ficam em dados.js (carregado antes deste arquivo).
-
-const elemento = function (id) {
-  return document.getElementById(id);
-};
-
-function mostrarMensagem(texto, tipo) {
-  const caixa = elemento('mensagem');
-
-  caixa.textContent = texto;
-  caixa.className = 'mensagem mensagem-' + tipo;
-
-  setTimeout(function () {
-    caixa.className = 'mensagem';
-    caixa.textContent = '';
-  }, 3000);
-}
+// Tela "Meu dia": saudação, energia, hábitos de hoje e jardim.
+// Regras em dados.js; cabeçalho em cabecalho.js; textos em textos.js.
 
 // ---------- Desenho da tela ----------
 
@@ -35,62 +19,69 @@ function desenharSaudacao() {
     titulo.append(', ', destaque);
   }
 
-  elemento('data-hoje').textContent = new Date().toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long'
-  });
+  elemento('data-hoje').textContent = formatarDataLonga(dataDeHoje());
 }
 
 function desenharEnergia() {
   const registrada = lerEnergiaDeHoje();
 
-  document.querySelectorAll('.botao-energia').forEach(function (botao) {
-    const selecionado = botao.dataset.nivel === registrada;
-
-    botao.classList.toggle('botao-energia-ativo', selecionado);
-    botao.setAttribute('aria-pressed', String(selecionado));
+  document.querySelectorAll('.energia-opcoes .opcao').forEach(function (botao) {
+    botao.setAttribute('aria-pressed', String(botao.dataset.nivel === registrada));
   });
 
-  const textos = {
-    baixa: 'Hoje o Bloom mostra a versão leve dos seus hábitos. Fazer o pouco também conta.',
-    média: 'Um dia de ritmo normal. Siga no seu tempo.',
-    alta: 'Dia de energia boa! Aproveite para avançar nos seus hábitos.'
-  };
+  elemento('energia-aviso').textContent = registrada
+    ? TEXTOS.energia[registrada].aviso
+    : TEXTOS.energia.semRegistro;
+}
 
-  elemento('energia-texto').textContent = registrada
-    ? textos[registrada]
-    : 'Escolha a flor que mais combina com você agora.';
-
-  // O botão para a página de hábitos só aparece depois do check-in.
-  elemento('ir-habitos').hidden = registrada === null;
+function desenharHabitosDeHoje() {
+  desenharChecklistDeHoje(elemento('lista-habitos'), desenharTudo);
+  elemento('lista-vazia').hidden = listarHabitos().length > 0;
 }
 
 function desenharJardim() {
   const progresso = calcularProgressoDeHoje();
-  const floridas = estagioDoJardim(progresso.porcentagem);
+  const jardim = montarJardim();
+  const lista = elemento('jardim');
 
   elemento('jardim-percentual').textContent = progresso.porcentagem + '%';
+  elemento('jardim-preenchido').style.width = progresso.porcentagem + '%';
+  elemento('jardim-barra').setAttribute('aria-valuenow', String(progresso.porcentagem));
 
   elemento('jardim-texto').textContent = progresso.total === 0
-    ? 'Você ainda não tem hábitos. Plante o primeiro na página Hábitos.'
-    : progresso.feitos + ' de ' + progresso.total + ' hábitos cuidados hoje';
+    ? 'Seu jardim ainda não tem plantas. Cada hábito vira uma planta.'
+    : textoHabitosCuidados(progresso.feitos, progresso.total);
 
-  const jardim = elemento('jardim');
+  lista.replaceChildren();
 
-  jardim.setAttribute(
-    'aria-label',
-    'Jardim com ' + floridas + ' de ' + PLANTAS_NO_JARDIM + ' plantas floridas'
-  );
+  jardim.plantas.forEach(function (planta) {
+    const item = document.createElement('li');
+    const situacao = planta.florida ? 'florida' : 'em broto';
 
-  jardim.querySelectorAll('.planta').forEach(function (planta, indice) {
-    planta.classList.toggle('planta-florida', indice < floridas);
+    item.append(
+      criarSvg('..', planta.florida ? 'flor-florida' : 'flor-botao', 'ilustracao', 48, 72)
+    );
+
+    const descricao = document.createElement('span');
+    descricao.className = 'visualmente-oculto';
+    descricao.textContent = planta.nome + ': ' + situacao;
+    item.appendChild(descricao);
+
+    lista.appendChild(item);
   });
+
+  if (jardim.excedentes > 0) {
+    const mais = document.createElement('li');
+    mais.className = 'jardim-mais';
+    mais.textContent = '+' + jardim.excedentes;
+    lista.appendChild(mais);
+  }
 }
 
 function desenharTudo() {
   desenharSaudacao();
   desenharEnergia();
+  desenharHabitosDeHoje();
   desenharJardim();
 }
 
@@ -107,15 +98,15 @@ elemento('form-nome').addEventListener('submit', function (evento) {
   desenharTudo();
 });
 
-document.querySelectorAll('.botao-energia').forEach(function (botao) {
+document.querySelectorAll('.energia-opcoes .opcao').forEach(function (botao) {
   botao.addEventListener('click', function () {
-    if (!salvarEnergiaDeHoje(botao.dataset.nivel)) {
-      mostrarMensagem('Nível de energia inválido.', 'erro');
-      return;
+    if (!registrarEnergia(botao.dataset.nivel)) {
+      mostrarMensagem('Não foi possível salvar a energia. Verifique o espaço do navegador.', 'erro');
     }
-
-    desenharTudo();
   });
 });
+
+// Quando a energia muda (aqui ou na pílula do cabeçalho), a tela se redesenha.
+document.addEventListener('energia-alterada', desenharTudo);
 
 desenharTudo();

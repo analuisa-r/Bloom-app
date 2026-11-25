@@ -222,28 +222,26 @@ function calcularProgressoDeHoje() {
 
 // ---------- Jardim e saudação ----------
 
-const PLANTAS_NO_JARDIM = 4;
+const MAXIMO_DE_PLANTAS = 12;
 
-// RN13: quantas plantas do jardim estão floridas, pela porcentagem de hábitos
-// concluídos hoje. 0% = 0 | 1% a 33% = 1 | 34% a 66% = 2 | 67% a 99% = 3 | 100% = 4
-function estagioDoJardim(porcentagem) {
-  if (porcentagem <= 0) {
-    return 0;
-  }
+// RN13: o jardim tem uma planta por hábito: broto se o hábito ainda não foi
+// concluído hoje, florida se foi. Mostra até 12 plantas; as demais viram "+N".
+function montarJardim() {
+  const concluidos = listarConcluidosDeHoje();
 
-  if (porcentagem <= 33) {
-    return 1;
-  }
+  const plantas = listarHabitos().map(function (habito) {
+    return {
+      nome: habito.nome,
+      florida: concluidos.some(function (registro) {
+        return registro.id === habito.id;
+      })
+    };
+  });
 
-  if (porcentagem <= 66) {
-    return 2;
-  }
-
-  if (porcentagem < 100) {
-    return 3;
-  }
-
-  return 4;
+  return {
+    plantas: plantas.slice(0, MAXIMO_DE_PLANTAS),
+    excedentes: Math.max(0, plantas.length - MAXIMO_DE_PLANTAS)
+  };
 }
 
 // RN14: Bom dia (até 11h), Boa tarde (12h às 17h), Boa noite (a partir das 18h).
