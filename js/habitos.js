@@ -188,3 +188,6 @@ CATEGORIAS.forEach(function (categoria) {
 });
 
 desenharTudo();
+
+// Quando a energia muda pela pílula do cabeçalho, a tela se redesenha.
+document.addEventListener('energia-alterada', desenharTudo);
