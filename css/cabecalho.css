@@ -1,0 +1,74 @@
+/* cabecalho.css
+   Cabeçalho das páginas (montado por cabecalho.js). Usa só variáveis de tokens.css,
+   então funciona tanto nas páginas novas quanto nas que ainda usam o CSS antigo. */
+
+.cab {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--espaco-4);
+  max-width: var(--largura-conteudo); margin: 0 auto; padding: var(--espaco-3) var(--espaco-4);
+  font-family: var(--fonte-texto); color: var(--cor-texto);
+  border-bottom: 1px solid var(--cor-borda);
+}
+.cab *, .cab *::before, .cab *::after { box-sizing: border-box; }
+
+.cab-logo {
+  display: inline-flex; align-items: center; gap: 0.4rem; justify-self: start;
+  color: var(--cor-vinho); text-decoration: none;
+  font-family: var(--fonte-titulo); font-size: 2rem; font-weight: 500; line-height: 1;
+}
+.cab-logo svg { width: 26px; height: 36px; }
+
+.cab-menu { display: flex; gap: var(--espaco-2); }
+.cab-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  min-height: var(--alvo-minimo); padding: 0 0.9rem;
+  color: var(--cor-texto); text-decoration: none; border-bottom: 3px solid transparent;
+}
+.cab-link:hover { color: var(--cor-vinho); }
+.cab-link[aria-current="page"] { color: var(--cor-vinho); font-weight: 700; border-bottom-color: var(--cor-vinho); }
+.cab .icone { width: 1.25em; height: 1.25em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Pílula "Energia de hoje" */
+.cab-energia { position: relative; justify-self: end; }
+.cab-energia-resumo {
+  display: inline-flex; align-items: center; gap: 0.5rem; list-style: none; cursor: pointer;
+  min-height: var(--alvo-minimo); padding: 0 1rem;
+  background: var(--cor-branco); border: 1.5px solid var(--cor-borda-campo); border-radius: var(--raio-pilula);
+}
+.cab-energia-resumo::-webkit-details-marker { display: none; }
+.cab-energia[open] .cab-energia-resumo .icone { transform: rotate(180deg); }
+.cab-energia-ponto { width: 10px; height: 10px; flex: none; background: var(--cor-verde); border: 2px solid var(--cor-verde); border-radius: 50%; }
+.cab-energia-ponto-vazio { background: transparent; }
+
+.cab-energia-painel {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 30;
+  width: min(340px, calc(100vw - 2rem)); padding: var(--espaco-4);
+  background: var(--cor-branco); border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-medio); box-shadow: var(--sombra-suave);
+}
+.cab-energia-titulo { margin: 0 0 var(--espaco-3); font-weight: 700; }
+.cab-energia-opcoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--espaco-2); }
+.cab-energia-opcoes .opcao { padding: var(--espaco-3) var(--espaco-1); font-size: var(--texto-pequeno); }
+
+/* Celular: menu vira uma barra fixa embaixo, com alvos grandes */
+@media (max-width: 720px) {
+  .cab { grid-template-columns: 1fr auto; }
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+
+  .cab-menu {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    padding: 0 var(--espaco-1) env(safe-area-inset-bottom);
+    background: var(--cor-branco); border-top: 1px solid var(--cor-borda);
+  }
+  .cab-link {
+    flex-direction: column; justify-content: center; gap: 0.1rem; min-height: 60px;
+    padding: var(--espaco-1); font-size: var(--texto-pequeno);
+    border-bottom: 0; border-top: 3px solid transparent;
+  }
+  .cab-link[aria-current="page"] { border-top-color: var(--cor-vinho); }
+}
+
+@media (max-width: 480px) {
+  .cab-energia-rotulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}

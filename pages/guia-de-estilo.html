@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia de estilo - Bloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/componentes.css">
+  <style>
+    /* Só desta página de apoio ao desenvolvimento. */
+    .guia { max-width: var(--largura-conteudo); margin: 0 auto; padding: var(--espaco-5) var(--espaco-4) var(--espaco-8); }
+    .guia section { margin-bottom: var(--espaco-6); }
+    .linha { display: flex; flex-wrap: wrap; gap: var(--espaco-3); align-items: center; }
+    .amostras { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--espaco-3); }
+    .amostra { padding: var(--espaco-4); border: 1px solid var(--cor-borda); border-radius: var(--raio-medio); font-size: var(--texto-pequeno); }
+    .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--espaco-3); max-width: 480px; }
+  </style>
+</head>
+<body>
+  <main class="guia">
+    <h1>Guia de estilo</h1>
+    <p class="texto-suave">Página de apoio para conferir tokens e componentes. Não faz parte do produto.</p>
+
+    <section class="cartao" aria-labelledby="t-cores">
+      <h2 id="t-cores">Cores</h2>
+      <div class="amostras">
+        <div class="amostra" style="background: var(--cor-creme)">Creme<br>fundo</div>
+        <div class="amostra" style="background: var(--cor-rosa-pastel)">Rosa pastel</div>
+        <div class="amostra" style="background: var(--cor-rosa-blush)">Rosa blush<br>(só decoração)</div>
+        <div class="amostra" style="background: var(--cor-sage)">Verde-sálvia</div>
+        <div class="amostra" style="background: var(--cor-vinho); color: var(--cor-branco)">Vinho<br>ações</div>
+        <div class="amostra" style="background: var(--cor-verde-escuro); color: var(--cor-branco)">Verde escuro<br>concluído</div>
+      </div>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-tipo">
+      <h2 id="t-tipo">Tipografia</h2>
+      <h1>Floresça um dia de <em style="color: var(--cor-vinho)">cada vez.</em></h1>
+      <h2>Título médio</h2>
+      <h3>Título pequeno</h3>
+      <p>Texto de leitura em Nunito, 16 px, com <a href="#t-tipo">link</a> em vinho.</p>
+      <p class="texto-suave">Texto suave para detalhes e ajudas.</p>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-botoes">
+      <h2 id="t-botoes">Botões (teste o foco com a tecla Tab)</h2>
+      <div class="linha">
+        <button type="button" class="botao">Principal</button>
+        <button type="button" class="botao botao-secundario">Secundário</button>
+        <button type="button" class="botao botao-perigo botao-pequeno">Excluir</button>
+        <button type="button" class="botao botao-pequeno botao-secundario">Editar</button>
+        <a class="botao" href="#t-botoes">Com ícone
+          <svg class="icone" aria-hidden="true"><use href="../assets/icones.svg#icone-seta-direita"></use></svg></a>
+      </div>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-campos">
+      <h2 id="t-campos">Campos</h2>
+      <label class="campo-rotulo" for="g-nome">Nome do hábito</label>
+      <input class="campo-entrada" id="g-nome" type="text" placeholder="Ex.: Meditar">
+      <p class="campo-ajuda">O menor passo possível para os dias de pouca energia.</p>
+      <label class="campo-rotulo" for="g-cat">Categoria</label>
+      <select class="campo-entrada" id="g-cat"><option>Autocuidado</option><option>Estudos</option></select>
+      <label class="campo-rotulo" for="g-txt">Anotações</label>
+      <textarea class="campo-entrada" id="g-txt"></textarea>
+      <fieldset class="grupo">
+        <legend>Meu dia foi</legend>
+        <div class="linha">
+          <button type="button" class="opcao" aria-pressed="true">Leve</button>
+          <button type="button" class="opcao" aria-pressed="false">Tranquilo</button>
+        </div>
+      </fieldset>
+      <div class="linha" style="margin-top: var(--espaco-4)">
+        <input class="caixa" id="g-cx1" type="checkbox" checked><label for="g-cx1">Hábito concluído</label>
+        <input class="caixa" id="g-cx2" type="checkbox"><label for="g-cx2">Hábito pendente</label>
+      </div>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-energia">
+      <h2 id="t-energia">Energia e flores (clique para testar o estado selecionado)</h2>
+      <div class="trio" id="g-energia">
+        <button type="button" class="opcao" aria-pressed="false">
+          <svg class="ilustracao" width="64" height="96" aria-hidden="true"><use href="../assets/icones.svg#flor-botao"></use></svg>
+          <strong data-texto="energia.baixa.nome"></strong><span data-texto="energia.baixa.estagio"></span></button>
+        <button type="button" class="opcao" aria-pressed="true">
+          <svg class="ilustracao" width="64" height="96" aria-hidden="true"><use href="../assets/icones.svg#flor-abrindo"></use></svg>
+          <strong data-texto="energia.média.nome"></strong><span data-texto="energia.média.estagio"></span></button>
+        <button type="button" class="opcao" aria-pressed="false">
+          <svg class="ilustracao" width="64" height="96" aria-hidden="true"><use href="../assets/icones.svg#flor-florida"></use></svg>
+          <strong data-texto="energia.alta.nome"></strong><span data-texto="energia.alta.estagio"></span></button>
+      </div>
+      <p class="aviso" style="margin-top: var(--espaco-4)" data-texto="energia.baixa.aviso"></p>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-outros">
+      <h2 id="t-outros">Chips, barra, mensagens e ícones</h2>
+      <div class="linha">
+        <span class="chip">Bem-estar</span><span class="chip chip-rosa">Estudos</span><span class="chip">Em andamento</span>
+      </div>
+      <p style="margin-top: var(--espaco-4)" id="g-prog-texto"></p>
+      <div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" aria-labelledby="g-prog-texto">
+        <div class="barra-preenchida" style="width: 40%"></div>
+      </div>
+      <p class="mensagem mensagem-sucesso" style="margin-top: var(--espaco-4)">Hábito criado!</p>
+      <p class="mensagem mensagem-erro">Digite um nome com pelo menos 2 letras.</p>
+      <div class="linha">
+        <svg class="icone" width="24" height="24" aria-hidden="true"><use href="../assets/icones.svg#icone-meu-dia"></use></svg>
+        <svg class="icone" width="24" height="24" aria-hidden="true"><use href="../assets/icones.svg#icone-habitos"></use></svg>
+        <svg class="icone" width="24" height="24" aria-hidden="true"><use href="../assets/icones.svg#icone-metas"></use></svg>
+        <svg class="icone" width="24" height="24" aria-hidden="true"><use href="../assets/icones.svg#icone-diario"></use></svg>
+        <svg class="icone" width="24" height="24" aria-hidden="true"><use href="../assets/icones.svg#icone-coracao"></use></svg>
+        <svg class="ilustracao" width="32" height="44" aria-hidden="true"><use href="../assets/icones.svg#logo-flor"></use></svg>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/textos.js"></script>
+  <script>
+    // Só para testar na página de guia: alterna o estado selecionado e mostra a concordância.
+    document.querySelectorAll('.opcao').forEach(function (botao) {
+      botao.addEventListener('click', function () {
+        botao.parentElement.querySelectorAll('.opcao').forEach(function (irma) {
+          irma.setAttribute('aria-pressed', String(irma === botao));
+        });
+      });
+    });
+    document.getElementById('g-prog-texto').textContent =
+      textoHabitosCuidados(2, 5) + ' · ' + textoHabitosCuidados(1, 1);
+  </script>
+</body>
+</html>

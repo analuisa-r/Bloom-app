@@ -1,0 +1,140 @@
+/* componentes.css
+   Peças reutilizáveis do Bloom. Usa só as variáveis de tokens.css.
+   Layout de cada página fica em paginas.css. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-base);
+  line-height: 1.6;
+  color: var(--cor-texto);
+  background: var(--cor-creme);
+}
+
+h1, h2, h3 {
+  margin: 0 0 var(--espaco-3);
+  font-family: var(--fonte-titulo);
+  font-weight: 500;
+  line-height: 1.15;
+}
+h1 { font-size: var(--titulo-grande); }
+h2 { font-size: var(--titulo-medio); }
+h3 { font-size: var(--titulo-pequeno); }
+p { margin: 0 0 var(--espaco-3); }
+a { color: var(--cor-vinho); }
+
+:focus-visible { outline: var(--foco); outline-offset: 3px; }
+
+[hidden] { display: none !important; }
+
+.visualmente-oculto {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.texto-suave { color: var(--cor-texto-suave); }
+
+/* ---------- Ícones e ilustrações (sprite em assets/icones.svg) ---------- */
+.icone {
+  width: 1.25em; height: 1.25em; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.ilustracao { display: block; height: auto; }
+
+/* ---------- Botões (mínimo de 44 px de altura) ---------- */
+.botao {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--espaco-2);
+  min-height: var(--alvo-minimo); padding: 0.7rem 1.6rem;
+  font: inherit; font-weight: 700; text-decoration: none; cursor: pointer;
+  color: var(--cor-branco); background: var(--cor-vinho);
+  border: 2px solid var(--cor-vinho); border-radius: var(--raio-pilula);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.botao:hover { background: var(--cor-vinho-escuro); border-color: var(--cor-vinho-escuro); }
+.botao-secundario { color: var(--cor-vinho); background: transparent; }
+.botao-secundario:hover { color: var(--cor-vinho); background: var(--cor-rosa-pastel); border-color: var(--cor-vinho); }
+.botao-perigo { color: var(--cor-erro); background: transparent; border-color: var(--cor-erro); }
+.botao-perigo:hover { color: var(--cor-branco); background: var(--cor-erro); border-color: var(--cor-erro); }
+.botao-pequeno { padding: 0.4rem 1.1rem; font-size: var(--texto-pequeno); }
+.botao-bloco { width: 100%; }
+
+/* ---------- Cartão ---------- */
+.cartao {
+  padding: var(--espaco-6);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-suave);
+}
+
+/* ---------- Campos de formulário ---------- */
+.campo-rotulo { display: block; margin: var(--espaco-4) 0 var(--espaco-1); font-weight: 700; }
+.campo-ajuda { margin: var(--espaco-1) 0 0; font-size: var(--texto-pequeno); color: var(--cor-texto-suave); }
+.campo-entrada {
+  display: block; width: 100%; min-height: var(--alvo-minimo); padding: 0.7rem 1.1rem;
+  font: inherit; color: var(--cor-texto); background: var(--cor-creme);
+  border: 1.5px solid var(--cor-borda-campo); border-radius: var(--raio-medio);
+}
+.campo-entrada::placeholder { color: var(--cor-texto-suave); opacity: 1; }
+textarea.campo-entrada { min-height: 120px; resize: vertical; }
+fieldset.grupo { margin: var(--espaco-4) 0 0; padding: 0; border: 0; }
+fieldset.grupo legend { padding: 0; margin-bottom: var(--espaco-2); font-weight: 700; }
+
+/* ---------- Caixa de marcar (hábitos e metas), 44 px ---------- */
+.caixa {
+  appearance: none; -webkit-appearance: none; flex: none;
+  width: var(--alvo-minimo); height: var(--alvo-minimo); margin: 0; cursor: pointer;
+  background: var(--cor-branco); border: 2px solid var(--cor-borda-campo); border-radius: 50%;
+}
+.caixa:checked {
+  background: var(--cor-verde-escuro) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 60% no-repeat;
+  border-color: var(--cor-verde-escuro);
+}
+
+/* ---------- Opção (energia, humor): o selecionado tem borda grossa e selo, não só cor ---------- */
+.opcao {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--espaco-1);
+  min-height: var(--alvo-minimo); padding: var(--espaco-4) var(--espaco-2);
+  font: inherit; color: inherit; cursor: pointer;
+  background: var(--cor-creme); border: 1.5px solid var(--cor-borda-campo); border-radius: var(--raio-medio);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.opcao:hover { transform: translateY(-2px); }
+.opcao[aria-pressed="true"] { background: var(--cor-rosa-pastel); border: 3px solid var(--cor-vinho); }
+.opcao[aria-pressed="true"]::after {
+  content: ""; position: absolute; top: 6px; right: 6px; width: 22px; height: 22px;
+  background: var(--cor-vinho) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat;
+  border-radius: 50%;
+}
+
+/* ---------- Chip (categoria, humor, situação) ---------- */
+.chip {
+  display: inline-flex; align-items: center; padding: 0.15rem 0.8rem;
+  font-size: var(--texto-pequeno); font-weight: 700; color: var(--cor-texto);
+  background: var(--cor-sage-claro); border-radius: var(--raio-pilula);
+}
+.chip-rosa { background: var(--cor-rosa-pastel); }
+
+/* ---------- Barra de progresso (usar role="progressbar" com aria-valuenow) ---------- */
+.barra { height: 12px; overflow: hidden; background: #F0E4DF; border-radius: var(--raio-pilula); }
+.barra-preenchida {
+  height: 100%; width: 0; background: var(--cor-verde); border-radius: var(--raio-pilula);
+  transition: width 0.4s ease;
+}
+
+/* ---------- Mensagens e avisos (o texto diz o que houve; a cor só reforça) ---------- */
+.mensagem { min-height: 1.6em; margin: 0 0 var(--espaco-3); font-weight: 700; }
+.mensagem-sucesso { color: var(--cor-verde-escuro); }
+.mensagem-erro { color: var(--cor-erro); }
+.aviso {
+  margin: 0 0 var(--espaco-4); padding: var(--espaco-3) var(--espaco-4);
+  background: var(--cor-sage-claro); border-left: 6px solid var(--cor-verde); border-radius: var(--raio-pequeno);
+}
+
+/* ---------- Movimento reduzido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

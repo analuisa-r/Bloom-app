@@ -1,0 +1,62 @@
+/* tokens.css
+   Valores de design do Bloom (cores, fontes, espaços). Só variáveis, nenhuma regra de estilo.
+   Contrastes conferidos (mínimo 4,5:1 para texto): texto sobre creme 8,9; texto suave 6,6;
+   vinho 8,7; verde-escuro 7,3; branco sobre vinho 9,1. */
+
+:root {
+  /* Cores da identidade (paleta original do projeto) */
+  --cor-creme: #FFF9F5;
+  --cor-branco: #FFFFFF;
+  --cor-rosa-pastel: #F8DCE8;
+  --cor-rosa-blush: #EFB7CC;
+  --cor-sage: #C8D8C0;
+  --cor-sage-claro: #E6EEE1;
+
+  /* Texto e ações */
+  --cor-texto: #51434A;
+  --cor-texto-suave: #66565D;
+  --cor-vinho: #6B3A44;
+  --cor-vinho-escuro: #4F2B33;
+  --cor-destaque: #8A4452;
+  --cor-verde: #4F6B58;
+  --cor-verde-escuro: #3F5A48;
+  --cor-erro: #8E2D3F;
+
+  /* Linhas: a decorativa é suave; a de campos precisa de contraste 3:1 */
+  --cor-borda: #EBCFD9;
+  --cor-borda-campo: #85727A;
+
+  /* Fontes */
+  --fonte-titulo: 'Cormorant Garamond', Georgia, serif;
+  --fonte-texto: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Tamanhos de texto */
+  --texto-base: 1rem;
+  --texto-pequeno: 0.875rem;
+  --titulo-grande: clamp(2.4rem, 7vw, 3.8rem);
+  --titulo-medio: clamp(1.7rem, 4.5vw, 2.3rem);
+  --titulo-pequeno: 1.4rem;
+
+  /* Espaços */
+  --espaco-1: 0.25rem;
+  --espaco-2: 0.5rem;
+  --espaco-3: 0.75rem;
+  --espaco-4: 1rem;
+  --espaco-5: 1.5rem;
+  --espaco-6: 2rem;
+  --espaco-8: 3rem;
+
+  /* Formas e sombras */
+  --raio-pequeno: 12px;
+  --raio-medio: 20px;
+  --raio-grande: 28px;
+  --raio-pilula: 999px;
+  --sombra-suave: 0 8px 28px rgba(81, 67, 74, 0.07);
+
+  /* Acessibilidade */
+  --alvo-minimo: 44px;
+  --foco: 3px solid var(--cor-vinho);
+
+  /* Layout */
+  --largura-conteudo: 1080px;
+}
