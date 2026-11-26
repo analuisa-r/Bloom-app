@@ -1,5 +1,5 @@
 // lista-habitos.js
-// Lista "hábitos de hoje" com caixinhas de marcar. Usada na página Meu dia.
+// Lista de hábitos de hoje, com caixinhas de marcar. Usada em Meu dia e em Hábitos.
 // Regras da energia (em dados.js):
 //   Baixa: mostra a versão mínima (se o hábito tiver) e concluir a mínima conta como cumprido.
 //   Média e Alta: mostram o nome completo. Sem registro do dia vale Média.
@@ -17,8 +17,27 @@ function descreverHabitoParaHoje(habito, registro) {
   };
 }
 
-// Desenha a lista dentro de "lista" (um <ul>). "aoMudar" roda depois de marcar ou desmarcar.
-function desenharChecklistDeHoje(lista, aoMudar) {
+function criarBotaoDaLista(texto, classe, descricaoAcessivel, aoClicar) {
+  const botao = document.createElement('button');
+
+  botao.type = 'button';
+  botao.className = classe;
+  botao.textContent = texto;
+  botao.setAttribute('aria-label', descricaoAcessivel);
+  botao.addEventListener('click', aoClicar);
+
+  return botao;
+}
+
+// Desenha a lista dentro de "lista" (um <ul>). Opções:
+//   aoMudar: roda depois de marcar ou desmarcar um hábito
+//   aoEditar(habito) e aoExcluir(habito): se informadas, aparecem os botões
+//   mostrarConstancia: acrescenta "Constância: N%" no detalhe
+function desenharChecklistDeHoje(lista, opcoes) {
+  const configuracao = Object.assign(
+    { aoMudar: function () {}, aoEditar: null, aoExcluir: null, mostrarConstancia: false },
+    opcoes
+  );
   const concluidos = listarConcluidosDeHoje();
 
   lista.replaceChildren();
@@ -40,7 +59,7 @@ function desenharChecklistDeHoje(lista, aoMudar) {
 
     caixa.addEventListener('change', function () {
       alternarConclusao(habito.id);
-      aoMudar();
+      configuracao.aoMudar();
     });
 
     const texto = document.createElement('label');
@@ -52,10 +71,18 @@ function desenharChecklistDeHoje(lista, aoMudar) {
     principal.textContent = descricao.principal;
     texto.appendChild(principal);
 
-    if (descricao.detalhe !== '') {
+    const partesDoDetalhe = [descricao.detalhe];
+
+    if (configuracao.mostrarConstancia) {
+      partesDoDetalhe.push('Constância: ' + calcularConstancia(habito.id) + '%');
+    }
+
+    const detalheTexto = partesDoDetalhe.filter(Boolean).join(' · ');
+
+    if (detalheTexto !== '') {
       const detalhe = document.createElement('span');
       detalhe.className = 'item-habito-detalhe';
-      detalhe.textContent = descricao.detalhe;
+      detalhe.textContent = detalheTexto;
       texto.appendChild(detalhe);
     }
 
@@ -64,6 +91,28 @@ function desenharChecklistDeHoje(lista, aoMudar) {
     categoria.textContent = habito.categoria;
 
     item.append(caixa, texto, categoria);
+
+    if (configuracao.aoEditar || configuracao.aoExcluir) {
+      const acoes = document.createElement('div');
+      acoes.className = 'item-habito-acoes';
+
+      if (configuracao.aoEditar) {
+        acoes.appendChild(criarBotaoDaLista(
+          'Editar', 'botao botao-secundario botao-pequeno', 'Editar ' + habito.nome,
+          function () { configuracao.aoEditar(habito); }
+        ));
+      }
+
+      if (configuracao.aoExcluir) {
+        acoes.appendChild(criarBotaoDaLista(
+          'Excluir', 'botao botao-perigo botao-pequeno', 'Excluir ' + habito.nome,
+          function () { configuracao.aoExcluir(habito); }
+        ));
+      }
+
+      item.appendChild(acoes);
+    }
+
     lista.appendChild(item);
   });
 }

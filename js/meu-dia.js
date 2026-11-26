@@ -35,7 +35,7 @@ function desenharEnergia() {
 }
 
 function desenharHabitosDeHoje() {
-  desenharChecklistDeHoje(elemento('lista-habitos'), desenharTudo);
+  desenharChecklistDeHoje(elemento('lista-habitos'), { aoMudar: desenharTudo });
   elemento('lista-vazia').hidden = listarHabitos().length > 0;
 }
 

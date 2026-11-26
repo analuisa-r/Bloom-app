@@ -33,6 +33,18 @@ function textoHabitosCuidados(feitos, total) {
   return feitos + ' de ' + total + ' ' + palavra + ' hoje';
 }
 
+// "faltam 12 dias" / "falta 1 dia"
+function textoFaltamDias(dias) {
+  return dias === 1 ? 'falta 1 dia' : 'faltam ' + dias + ' dias';
+}
+
+// "1 de 1 meta concluída" / "2 de 5 metas concluídas"
+function textoMetasConcluidas(concluidas, total) {
+  const palavra = total === 1 ? 'meta concluída' : 'metas concluídas';
+
+  return concluidas + ' de ' + total + ' ' + palavra;
+}
+
 function aplicarTextos() {
   document.querySelectorAll('[data-texto]').forEach(function (alvo) {
     const texto = alvo.dataset.texto.split('.').reduce(function (grupo, chave) {

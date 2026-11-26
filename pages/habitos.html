@@ -7,49 +7,44 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/app.css">
   <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/componentes.css">
   <link rel="stylesheet" href="../css/cabecalho.css">
+  <link rel="stylesheet" href="../css/paginas.css">
 </head>
-<body class="pagina-app">
+<body class="pagina">
   <header id="cabecalho" data-pagina="habitos" data-raiz=".."></header>
 
-  <main class="app">
-    <div class="titulo-pagina">
-      <div>
-        <p class="rotulo">Hoje</p>
-        <h1>Meus hábitos</h1>
-      </div>
-      <p class="faixa-energia">
-        Energia de hoje: <strong id="energia-atual"></strong>
-        <a id="link-energia" href="meu-dia.html">mudar</a>
-      </p>
-    </div>
+  <main class="conteudo">
+    <section class="saudacao">
+      <h1>Meus hábitos</h1>
+      <p id="contagem" class="texto-suave"></p>
+    </section>
 
     <p id="mensagem" class="mensagem" role="status"></p>
 
-    <div class="painel">
+    <div class="grade-duas">
       <div class="coluna">
-        <section class="cartao-app">
-          <p id="aviso-energia" class="aviso-energia"></p>
+        <section class="cartao" aria-labelledby="titulo-lista">
+          <h2 id="titulo-lista">Hábitos de hoje</h2>
+          <p id="energia-aviso" class="aviso"></p>
           <p id="lista-vazia">Você ainda não tem hábitos. Plante o primeiro ao lado.</p>
-          <ul id="lista-habitos" class="lista-habitos"></ul>
+          <ul id="lista-habitos" class="lista-checklist"></ul>
         </section>
       </div>
 
       <div class="coluna">
-        <form id="form-habito" class="cartao-app">
-          <p class="rotulo">Novo hábito</p>
-          <h2>Plantar uma semente</h2>
-          <label for="campo-habito">Nome do hábito</label>
-          <input id="campo-habito" type="text" maxlength="60" placeholder="Ex.: Meditar">
-          <label for="campo-categoria">Categoria</label>
-          <select id="campo-categoria"></select>
-          <label for="campo-minima">Versão mínima (opcional)</label>
-          <input id="campo-minima" type="text" maxlength="60" placeholder="Ex.: 2 minutos de respiração">
-          <p class="ajuda">O menor passo possível para os dias de pouca energia.</p>
-          <button class="botao" type="submit">Adicionar hábito</button>
+        <form id="form-habito" class="cartao" novalidate>
+          <h2 id="titulo-form">Plantar uma semente</h2>
+          <label class="campo-rotulo" for="campo-habito">Nome do hábito</label>
+          <input class="campo-entrada" id="campo-habito" type="text" maxlength="60" placeholder="Ex.: Meditar">
+          <label class="campo-rotulo" for="campo-categoria">Categoria</label>
+          <select class="campo-entrada" id="campo-categoria"></select>
+          <label class="campo-rotulo" for="campo-minima">Versão mínima (opcional)</label>
+          <input class="campo-entrada" id="campo-minima" type="text" maxlength="60" placeholder="Ex.: 2 minutos de respiração" aria-describedby="ajuda-minima">
+          <p id="ajuda-minima" class="campo-ajuda">O menor passo possível para os dias de pouca energia.</p>
+          <button id="botao-salvar" class="botao botao-bloco" type="submit" style="margin-top: var(--espaco-4)">Adicionar hábito</button>
+          <button id="botao-cancelar" class="botao botao-secundario botao-bloco" type="button" style="margin-top: var(--espaco-2)" hidden>Cancelar edição</button>
         </form>
       </div>
     </div>
@@ -61,6 +56,7 @@
   <script src="../js/svg.js"></script>
   <script src="../js/cabecalho.js"></script>
   <script src="../js/interface.js"></script>
+  <script src="../js/lista-habitos.js"></script>
   <script src="../js/habitos.js"></script>
 </body>
 </html>

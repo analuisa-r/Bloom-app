@@ -90,36 +90,48 @@ function usarVersaoMinima(habito) {
 
 // ---------- Ações sobre hábitos ----------
 
-function criarHabito(nome, categoria, versaoMinima) {
-  const nomeValido = nome.trim();
-
-  if (nomeValido.length < 2) {
-    return false;
+// RN01: nome com pelo menos 2 caracteres e categoria válida.
+// Devolve '' se está tudo certo, ou a mensagem do problema.
+function validarHabito(nome, categoria) {
+  if (nome.trim().length < 2) {
+    return 'Digite um nome com pelo menos 2 letras.';
   }
 
   if (!CATEGORIAS.includes(categoria)) {
-    return false;
+    return 'Escolha uma categoria válida.';
+  }
+
+  return '';
+}
+
+// Devolve '' se criou, ou a mensagem do problema.
+function criarHabito(nome, categoria, versaoMinima) {
+  const erro = validarHabito(nome, categoria);
+
+  if (erro !== '') {
+    return erro;
   }
 
   const habitos = listarHabitos();
 
   habitos.push({
     id: Date.now() + Math.random(),
-    nome: nomeValido,
+    nome: nome.trim(),
     categoria: categoria,
     versaoMinima: versaoMinima.trim()
   });
 
   armazenamento.salvar('habitos', habitos);
 
-  return true;
+  return '';
 }
 
+// Devolve '' se editou, ou a mensagem do problema.
 function editarHabito(id, novoNome, novaCategoria, novaVersaoMinima) {
-  const nomeValido = novoNome.trim();
+  const erro = validarHabito(novoNome, novaCategoria);
 
-  if (nomeValido.length < 2 || !CATEGORIAS.includes(novaCategoria)) {
-    return false;
+  if (erro !== '') {
+    return erro;
   }
 
   const habitos = listarHabitos();
@@ -128,19 +140,19 @@ function editarHabito(id, novoNome, novaCategoria, novaVersaoMinima) {
   });
 
   if (indice === -1) {
-    return false;
+    return 'Hábito não encontrado.';
   }
 
   habitos[indice] = {
     ...habitos[indice],
-    nome: nomeValido,
+    nome: novoNome.trim(),
     categoria: novaCategoria,
     versaoMinima: novaVersaoMinima.trim()
   };
 
   armazenamento.salvar('habitos', habitos);
 
-  return true;
+  return '';
 }
 
 function excluirHabito(id) {
@@ -259,6 +271,9 @@ function saudacaoPorHora(hora) {
 
 // ---------- Metas ----------
 
+// RN18: o andamento de uma meta é informado pela usuária, em passos de 25%.
+const ANDAMENTOS_DA_META = [0, 25, 50, 75, 100];
+
 function listarMetas() {
   return armazenamento.ler('metas', []);
 }
@@ -266,7 +281,7 @@ function listarMetas() {
 // RN08: toda meta tem título (mínimo 2 letras) e data-alvo, e a data-alvo
 // não pode ser anterior à data de criação da meta.
 // Devolve '' se está tudo certo, ou a mensagem do problema.
-function validarMeta(titulo, dataAlvo, dataMinima) {
+function validarMeta(titulo, dataAlvo, dataMinima, andamento) {
   if (titulo.trim().length < 2) {
     return 'Digite um título com pelo menos 2 letras.';
   }
@@ -279,12 +294,16 @@ function validarMeta(titulo, dataAlvo, dataMinima) {
     return 'A data-alvo não pode ser anterior à data de criação da meta.';
   }
 
+  if (!ANDAMENTOS_DA_META.includes(Number(andamento))) {
+    return 'Escolha o andamento da meta.';
+  }
+
   return '';
 }
 
 // Devolve '' se criou, ou a mensagem do problema.
-function criarMeta(titulo, descricao, dataAlvo) {
-  const erro = validarMeta(titulo, dataAlvo, dataDeHoje());
+function criarMeta(titulo, descricao, dataAlvo, andamento = 0) {
+  const erro = validarMeta(titulo, dataAlvo, dataDeHoje(), andamento);
 
   if (erro !== '') {
     return erro;
@@ -297,6 +316,7 @@ function criarMeta(titulo, descricao, dataAlvo) {
     titulo: titulo.trim(),
     descricao: descricao.trim(),
     dataAlvo: dataAlvo,
+    andamento: Number(andamento),
     criadaEm: dataDeHoje(),
     concluida: false
   });
@@ -307,7 +327,7 @@ function criarMeta(titulo, descricao, dataAlvo) {
 }
 
 // Devolve '' se editou, ou a mensagem do problema.
-function editarMeta(id, titulo, descricao, dataAlvo) {
+function editarMeta(id, titulo, descricao, dataAlvo, andamento) {
   const metas = listarMetas();
   const indice = metas.findIndex(function (meta) {
     return meta.id === id;
@@ -317,7 +337,9 @@ function editarMeta(id, titulo, descricao, dataAlvo) {
     return 'Meta não encontrada.';
   }
 
-  const erro = validarMeta(titulo, dataAlvo, metas[indice].criadaEm);
+  // Sem andamento informado, mantém o que a meta já tinha.
+  const andamentoFinal = andamento === undefined ? (metas[indice].andamento || 0) : andamento;
+  const erro = validarMeta(titulo, dataAlvo, metas[indice].criadaEm, andamentoFinal);
 
   if (erro !== '') {
     return erro;
@@ -327,7 +349,8 @@ function editarMeta(id, titulo, descricao, dataAlvo) {
     ...metas[indice],
     titulo: titulo.trim(),
     descricao: descricao.trim(),
-    dataAlvo: dataAlvo
+    dataAlvo: dataAlvo,
+    andamento: Number(andamentoFinal)
   };
 
   armazenamento.salvar('metas', metas);
@@ -347,6 +370,12 @@ function alternarMetaConcluida(id) {
   });
 
   armazenamento.salvar('metas', metas);
+}
+
+// RN18: meta concluída mostra 100%; as outras mostram o andamento informado
+// (metas antigas, sem andamento, contam 0%).
+function andamentoDaMeta(meta) {
+  return meta.concluida ? 100 : (meta.andamento || 0);
 }
 
 // Dias entre hoje e a data-alvo (negativo se o prazo já passou).
