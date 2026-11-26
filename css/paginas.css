@@ -9,7 +9,7 @@ body.pagina {
   background-attachment: fixed;
 }
 
-.conteudo { max-width: var(--largura-conteudo); margin: 0 auto; padding: var(--espaco-5) var(--espaco-4) var(--espaco-8); }
+.conteudo { position: relative; z-index: 1; max-width: var(--largura-conteudo); margin: 0 auto; padding: var(--espaco-5) var(--espaco-4) var(--espaco-8); }
 .coluna { display: flex; flex-direction: column; gap: var(--espaco-5); }
 .cartao h2 { margin-bottom: var(--espaco-4); }
 .cartao-topo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--espaco-2); }
@@ -21,7 +21,7 @@ body.pagina {
 .saudacao h1 em { color: var(--cor-vinho); }
 .saudacao p { margin: 0; }
 
-.meu-dia-grade { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--espaco-5); align-items: start; }
+.meu-dia-grade, .grade-duas { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--espaco-5); align-items: start; }
 .energia-opcoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--espaco-3); margin-bottom: var(--espaco-4); }
 .energia-opcoes .opcao strong { font-size: 1.05rem; }
 
@@ -44,6 +44,30 @@ body.pagina {
 }
 .jardim-mais { align-self: center; font-weight: 700; }
 
+/* ---------- Hábitos e Metas ---------- */
+.item-habito { flex-wrap: wrap; }
+.item-habito-acoes { display: flex; gap: var(--espaco-2); flex-basis: 100%; padding-left: calc(var(--alvo-minimo) + var(--espaco-3)); }
+
+.percentual-grande { margin: 0; font-family: var(--fonte-titulo); font-size: 2.2rem; color: var(--cor-vinho); line-height: 1; }
+.meta-descricao, .meta-prazo { display: block; margin: 0; font-size: var(--texto-pequeno); color: var(--cor-texto-suave); }
+.meta-andamento { display: flex; align-items: center; gap: var(--espaco-3); margin-top: var(--espaco-2); }
+.meta-andamento .barra { flex: 1; }
+.meta-andamento-texto { min-width: 3.2ch; font-size: var(--texto-pequeno); font-weight: 700; text-align: right; }
+
 @media (max-width: 800px) {
-  .meu-dia-grade { grid-template-columns: 1fr; }
+  .meu-dia-grade, .grade-duas { grid-template-columns: 1fr; }
+}
+
+/* ---------- Folhagens decorativas nas bordas (ficam atrás do conteúdo) ---------- */
+body.pagina::before,
+body.pagina::after {
+  content: ""; position: fixed; z-index: 0; pointer-events: none;
+  width: 190px; height: 330px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 190 330'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2386A58C'/%3E%3Cstop offset='1' stop-color='%233F5A48'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23A9C3A8'/%3E%3Cstop offset='1' stop-color='%236E9078'/%3E%3C/linearGradient%3E%3Cfilter id='s' x='-20%' y='-20%' width='150%' height='150%'%3E%3CfeDropShadow dx='3' dy='5' stdDeviation='5' flood-color='%233F5A48' flood-opacity='0.3'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23s)'%3E%3Cpath d='M0 330C-10 200 40 70 150 10 170 120 120 270 0 330Z' fill='url(%23a)'/%3E%3Cpath d='M0 330C40 250 85 160 150 10' fill='none' stroke='%23DDEBDC' stroke-opacity='0.55' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M0 300C60 262 120 232 178 216 152 286 82 322 0 300Z' fill='url(%23b)'/%3E%3Cpath d='M0 300C62 275 118 246 178 216' fill='none' stroke='%23F2F8F0' stroke-opacity='0.6' stroke-width='2' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+}
+body.pagina::before { left: -30px; top: 260px; }
+body.pagina::after { right: -30px; top: 70px; transform: scaleX(-1); }
+
+@media (max-width: 800px) {
+  body.pagina::before, body.pagina::after { display: none; }
 }
